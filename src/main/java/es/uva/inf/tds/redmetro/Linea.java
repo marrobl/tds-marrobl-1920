@@ -1,4 +1,4 @@
-package es.uva.inf.tds.pr4;
+package es.uva.inf.tds.redmetro;
 
 /**
  * Clase que representa los servicios de una línea en una red de metro.

@@ -1,4 +1,7 @@
-package es.uva.inf.tds.pr4;
+package es.uva.inf.tds.redmetro;
+
+import es.uva.inf.maps.CoordenadasGPS;
+
 /**
  * Clase que representa una estación en una línea de metro. 
  * Cada estación tiene asociada varias coordenadas GPS correspondientes 

@@ -1,4 +1,4 @@
-package es.uva.inf.tds.pr4;
+package es.uva.inf.maps;
 
 /**
  * Implementación de un tipo de dato que representa coordenadas GPS.

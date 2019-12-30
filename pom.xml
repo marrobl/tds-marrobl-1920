@@ -6,41 +6,20 @@
 	<artifactId>p4</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>2019-2020 práctica 4 de TDS del alumno marrobl</name>
-<properties>
+	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-
-    <sonar.host.url>https://sonarqube.inf.uva.es/</sonar.host.url>
-    <sonar.jdbc.url>jdbc:postgresql://www.example.com/sonar</sonar.jdbc.url>
-    <sonar.jdbc.username>sonar</sonar.jdbc.username>
-    <sonar.jdbc.password>sonar</sonar.jdbc.password>
-    <sonar.exclusions>src/main/java/es.uva.inf.maps/CoordenadasGPS.java,src/main/java/es.uva.inf.uva.tds.redmetro/Estacion.java,src/main/java/es.uva.inf.uva.tds.redmetro/Linea.java</sonar.exclusions>
-    <sonar.dynamic>reuseReports</sonar.dynamic>
-</properties>
-	<dependencies>
-	    <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
-        </dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.easymock/easymock -->
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>3.4</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+		<junit.jupiter.version>5.5.2</junit.jupiter.version>
+		<junit.platform.version>1.5.2</junit.platform.version>
+		<sonar.host.url>https://sonarqube.inf.uva.es/</sonar.host.url>
+		<sonar.jdbc.url>jdbc:postgresql://www.example.com/sonar</sonar.jdbc.url>
+		<sonar.jdbc.username>sonar</sonar.jdbc.username>
+		<sonar.jdbc.password>sonar</sonar.jdbc.password>
+		<sonar.exclusions>src/main/java/es.uva.inf.maps/CoordenadasGPS.java,src/main/java/es.uva.inf.uva.tds.redmetro/Estacion.java,src/main/java/es.uva.inf.uva.tds.redmetro/Linea.java</sonar.exclusions>
+		<sonar.dynamic>reuseReports</sonar.dynamic>
+	</properties>
 	<profiles>
 		<profile>
 			<id>Unit</id>
@@ -72,40 +51,63 @@
 				<testcase.groups>uva.inf.parasonarqube.TDD</testcase.groups>
 			</properties>
 		</profile>
-  <!-- BEGIN: Specific to mapping unit tests and covered code -->
-    <profile>
-      <id>coverage-per-test</id>
-      
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <!-- Minimal supported version is 2.4 -->
-            <version>2.20</version>
-            <configuration>
-              <properties>
-                <property>
-                  <name>listener</name>
-                  <value>org.sonar.java.jacoco.JUnitListener</value>
-                </property>
-              </properties>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
+		<!-- BEGIN: Specific to mapping unit tests and covered code -->
+		<profile>
+			<id>coverage-per-test</id>
 
-      <dependencies>
-        <dependency>
-          <groupId>org.codehaus.sonar-plugins.java</groupId>
-          <artifactId>sonar-jacoco-listeners</artifactId>
-          <version>1.2</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-  <!-- END: Specific to mapping unit tests and covered code -->
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<!-- Minimal supported version is 2.4 -->
+						<version>2.20</version>
+						<configuration>
+							<properties>
+								<property>
+									<name>listener</name>
+									<value>org.sonar.java.jacoco.JUnitListener</value>
+								</property>
+							</properties>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- END: Specific to mapping unit tests and covered code -->
 	</profiles>
+	<dependencies>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.sonar-plugins.java</groupId>
+			<artifactId>sonar-jacoco-listeners</artifactId>
+			<version>1.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -125,43 +127,51 @@
 					</dependencies>
 				</plugin>
 				<plugin>
-  					<groupId>org.jacoco</groupId>
-  					<artifactId>jacoco-maven-plugin</artifactId>
-  					<version>0.8.2</version>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.2</version>
 				</plugin>
 				<plugin>
-        				<groupId>org.sonarsource.scanner.maven</groupId>
-        				<artifactId>sonar-maven-plugin</artifactId>
-        				<version>3.5.0.1254</version>
-      			</plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.5.0.1254</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
 	<reporting>
-    		<plugins>
-      			<plugin>
-        			<groupId>org.apache.maven.plugins</groupId>
-        			<artifactId>maven-project-info-reports-plugin</artifactId>
-        			<version>2.7</version>
-      		</plugin>
+		<plugins>
 			<plugin>
-            			<groupId>org.apache.maven.plugins</groupId>
-            			<artifactId>maven-jxr-plugin</artifactId>
-            			<version>2.3</version>
-        	</plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+			</plugin>
 			<plugin>
-        			<groupId>org.apache.maven.plugins</groupId>
-        			<artifactId>maven-pmd-plugin</artifactId>
-        			<version>3.8</version>
-        			<configuration>
-          				<linkXref>true</linkXref>
-          				<sourceEncoding>utf-8</sourceEncoding>
-          				<minimumTokens>100</minimumTokens>
-          				<targetJdk>1.8</targetJdk>
-        			</configuration>
-      			</plugin>
-    		</plugins>
-  	</reporting>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.8</version>
+				<configuration>
+					<linkXref>true</linkXref>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>1.8</targetJdk>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 
 </project>

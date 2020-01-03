@@ -102,7 +102,7 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroAnadirLineaExcepitionTest() {
+	public void RedMetroAnadirLineaExcepcionTest() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.addLinea(null);});
 	}
 	
@@ -124,7 +124,14 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroGetLineaColorExcepitionTest() {
+	public void RedMetroGetLineaColorExcepcionTest() {
 		assertThrows(IllegalArgumentException.class, () -> {Linea linea = redMetro.getLinea(null);});
+	}
+	
+	@Test
+	@Tag("TDD")
+	public void RedMetrogetLineaEnServicioTest() {
+		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
+		assertArrayEquals(esperado,redMetro.getLineaEnServicio());
 	}
 }

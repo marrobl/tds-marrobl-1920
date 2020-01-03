@@ -73,4 +73,9 @@ public class RedMetro {
 		return null;
 	}
 
+	public Linea[] getLineaEnServicio() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

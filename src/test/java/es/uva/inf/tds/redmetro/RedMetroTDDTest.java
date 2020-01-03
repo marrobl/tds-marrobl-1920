@@ -106,5 +106,12 @@ public class RedMetroTDDTest {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.addLinea(null);});
 	}
 	
+	@Test
+	@Tag("TDD")
+	public void RedMetroObtenerLineaNumero() {
+		Linea lineaObtenida = redMetro.getLinea(1);
+		assertEquals(1, lineaObtenida.getNumero());
+	}
+	
 	
 }

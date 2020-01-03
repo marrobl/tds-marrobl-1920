@@ -48,4 +48,9 @@ public class RedMetro {
 		
 	}
 
+	public Linea getLinea(int numero) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

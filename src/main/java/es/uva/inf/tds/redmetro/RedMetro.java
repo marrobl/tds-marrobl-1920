@@ -84,9 +84,12 @@ public class RedMetro {
 
 	/**
 	 * Retira una linea de servicio temporalmente
+	 * La linea tiene que estar en la red
+	 * 
 	 * @param lineaTercera numero que identifica a la linea en la red de metro
+	 * @throws IllegalArgumentException cuando la linea no se encuentra en la red
 	 */
-	public void retirarLinea(Linea lineaTercera) {
+	public void retirarLinea(Linea linea) {
 		// TODO Auto-generated method stub
 		
 	}

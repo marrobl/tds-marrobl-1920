@@ -73,6 +73,10 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Devuelve todas las lineas de la red de metro que estan en servicio
+	 * @return lista de lineas en servicio de la red
+	 */
 	public Linea[] getLineaEnServicio() {
 		// TODO Auto-generated method stub
 		return null;

@@ -30,4 +30,9 @@ public class RedMetro {
 		return null;
 	}
 
+	public void addLinea(Linea linea) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

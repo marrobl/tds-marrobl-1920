@@ -82,4 +82,9 @@ public class RedMetro {
 		return null;
 	}
 
+	public void retirarLinea(int numero) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

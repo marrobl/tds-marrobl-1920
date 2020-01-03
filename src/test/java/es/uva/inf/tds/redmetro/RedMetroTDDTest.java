@@ -130,8 +130,17 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetrogetLineaEnServicioTest() {
+	public void RedMetroGetLineaEnServicioTest() {
 		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
 		assertArrayEquals(esperado,redMetro.getLineaEnServicio());
 	}
+	
+	@Test
+	@Tag("TDD")
+	public void RedMetroRetirarLineaNumeroTest() {
+		Linea[] esperado = {lineaPrimera, lineaSegunda};
+		redMetro.retirarLinea(3);
+		assertArrayEquals(esperado, redMetro.getLineaEnServicio());
+	}
+	
 }

@@ -109,5 +109,10 @@ public class RedMetro {
 		return null;
 	}
 
+	public Estacion[] getCorrespondencia(Linea linea1, Linea linea2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

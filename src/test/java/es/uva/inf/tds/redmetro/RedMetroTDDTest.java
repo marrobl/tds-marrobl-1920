@@ -162,4 +162,15 @@ public class RedMetroTDDTest {
 	public void RedMetroGetLineasEstacionExcepcionTest() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getLineas(null);});
 	}
+	
+	@Test
+	@Tag("TDD")
+	public void RedMetroConsultarCorrespondenciaTest() {
+		CoordenadasGPS coord_e = new CoordenadasGPS("0100°38'06\"N","136°05'59\"E");
+		CoordenadasGPS coord_s = new CoordenadasGPS("098°38'06\"N","135°05'59\"E");
+		CoordenadasGPS[] coordenadas = {coord_e, coord_s};
+ 		Estacion estacion= new Estacion("Tercera Estacion L2", coordenadas);
+		Estacion[] esperado = {estacion};
+		assertArrayEquals(esperado,redMetro.getCorrespondencia(lineaSegunda, lineaTercera));
+	}
 }

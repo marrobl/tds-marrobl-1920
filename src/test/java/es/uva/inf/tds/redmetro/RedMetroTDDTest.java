@@ -173,4 +173,10 @@ public class RedMetroTDDTest {
 		Estacion[] esperado = {estacion};
 		assertArrayEquals(esperado,redMetro.getCorrespondencia(lineaSegunda, lineaTercera));
 	}
+	
+	@Test
+	@Tag("TDD")
+	public void RedMetroGetCorrespondeciaExcepcionTest() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getCorrespondencia(null, lineaTercera);});
+	}
 }

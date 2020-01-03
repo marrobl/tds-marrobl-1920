@@ -11,8 +11,13 @@ public class RedMetro {
 	 * y un color que no puede coincidir con colores de otras lineas de esa red
 	 * 
 	 * @param lineas conjunto de Lineas que forman la red
+	 * 
+	 * @throws IllegalArgumentException cuando {@code lineas = null}
+	 * @throws IllegalArgumentException cuando {@code lineas.size()<2}
+	 * @throws IllegalArgumentException cuando las lineas no son univocamente identificadas en la red por numero consecutivo
+	 * @throws IllegalArgumentException cuando las lineas no tienen un color unico en esa red
 	 */
-	public RedMetro(ArrayList<Linea> lineas) {
+	public RedMetro(Linea... lineas) {
 		// TODO Auto-generated constructor stub
 	}
 

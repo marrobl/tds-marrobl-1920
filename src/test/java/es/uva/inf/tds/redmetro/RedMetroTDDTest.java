@@ -26,13 +26,10 @@ public class RedMetroTDDTest {
  		Linea lineaPrimera = new Linea(1,"rojo",estaciones);
  		Linea lineaSegunda = new Linea(2, "azul", estaciones);
  		Linea lineaTercera = new Linea(3, "verde", estaciones);
-		ArrayList<Linea> lineas = new ArrayList<>();
-		lineas.add(lineaPrimera);
-		lineas.add(lineaSegunda);
-		lineas.add(lineaTercera);
+		Linea[] lineas = {lineaPrimera, lineaSegunda, lineaTercera};
 		RedMetro redMetro = new RedMetro(lineas);
 		assertNotNull(redMetro.getLineas());
-		assertArrayEquals(lineas.toArray(),redMetro.getLineas());
+		assertArrayEquals(lineas,redMetro.getLineas());
 	}
 
 	@Test

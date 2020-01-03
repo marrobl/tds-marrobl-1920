@@ -12,7 +12,7 @@ public class RedMetro {
 	 * 
 	 * @param lineas conjunto de Lineas que forman la red
 	 * 
-	 * @throws IllegalArgumentException cuando {@code lineas = null}
+	 * @throws IllegalArgumentException cuando {@code lineas == null}
 	 * @throws IllegalArgumentException cuando {@code lineas.size()<2}
 	 * @throws IllegalArgumentException cuando las lineas no son univocamente identificadas en la red por numero consecutivo
 	 * @throws IllegalArgumentException cuando las lineas no tienen un color unico en esa red
@@ -66,6 +66,7 @@ public class RedMetro {
 	 * 
 	 * @param color color de identificacion de la linea
 	 * @return linea contenida en la red
+	 * @throws IllegalArgumentException cuando {@code color == null}
 	 */
 	public Linea getLinea(String color) {
 		// TODO Auto-generated method stub

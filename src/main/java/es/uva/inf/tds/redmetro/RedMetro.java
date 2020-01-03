@@ -50,6 +50,7 @@ public class RedMetro {
 	
 	/**
 	 * Devuelve la linea que esta en la red a partir de su numero
+	 * Si la linea no se encuentra en la red devuelve null
 	 * 
 	 * @param numero numero de identificacion de la linea
 	 * @return linea contenida en la red

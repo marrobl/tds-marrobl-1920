@@ -60,6 +60,13 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Devuelve la linea que esta en la red a partir de su color
+	 * Si la linea no se encuentra en la red devuelve null
+	 * 
+	 * @param color color de identificacion de la linea
+	 * @return linea contenida en la red
+	 */
 	public Linea getLinea(String color) {
 		// TODO Auto-generated method stub
 		return null;

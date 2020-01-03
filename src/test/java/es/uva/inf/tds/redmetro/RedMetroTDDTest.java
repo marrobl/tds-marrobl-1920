@@ -13,7 +13,7 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	void RedMetroTest() {
+	public void RedMetroTest() {
 		CoordenadasGPS coordEntrada1 = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
 		CoordenadasGPS coordSalida1 = new CoordenadasGPS("045°38'06\"N","132°05'59\"E");
 		CoordenadasGPS[] coordenadasInicial = {coordEntrada1, coordSalida1};
@@ -35,4 +35,10 @@ public class RedMetroTDDTest {
 		assertArrayEquals(lineas.toArray(),redMetro.getLineas());
 	}
 
+	@Test
+	@Tag("TDD")
+	public void RedMetroExcepcionTest() {
+		assertThrows(IllegalArgumentException.class, () -> { RedMetro redDeMetro = new RedMetro(null);});
+	}
+	
 }

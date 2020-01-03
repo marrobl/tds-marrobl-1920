@@ -122,4 +122,9 @@ public class RedMetroTDDTest {
 		assertEquals("rojo", lineaObtenida.getColor());
 	}
 	
+	@Test
+	@Tag("TDD")
+	public void RedMetroGetLineaColorExcepitionTest() {
+		assertThrows(IllegalArgumentException.class, () -> {Linea linea = redMetro.getLinea(null);});
+	}
 }

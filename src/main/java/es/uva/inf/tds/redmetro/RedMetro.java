@@ -82,6 +82,11 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Retira una linea de servicio temporalmente, introduciendo su numero
+	 * de identificacion
+	 * @param numero numero que identifica a la linea en la red de metro
+	 */
 	public void retirarLinea(int numero) {
 		// TODO Auto-generated method stub
 		

@@ -45,6 +45,7 @@ public class RedMetroTDDTest {
 	 		
 			Estacion[] estaciones3 = {estacionFinal1, estacionFinal2};
 	 		lineaTercera = new Linea(3, "verde", estaciones3);
+	 		
 			Linea[] lineas = {lineaPrimera, lineaSegunda, lineaTercera};
 			redMetro = new RedMetro(lineas);
 			
@@ -149,4 +150,10 @@ public class RedMetroTDDTest {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.retirarLinea(lineaCuarta);});
 	}
 	
+	@Test
+	@Tag("TDD")
+	public void RedMetroGetLineasEstacionTest() {
+		Linea[] esperado = {lineaPrimera, lineaTercera};
+		assertArrayEquals(esperado,redMetro.getLineas("Segunda Estacion L1"));
+	}
 }

@@ -94,5 +94,10 @@ public class RedMetro {
 		
 	}
 
+	public Linea[] getLineas(String nombreEstacion) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

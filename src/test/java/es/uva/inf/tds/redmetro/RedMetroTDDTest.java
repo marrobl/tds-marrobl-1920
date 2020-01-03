@@ -108,10 +108,18 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroObtenerLineaNumero() {
+	public void RedMetroGetLineaNumero() {
 		Linea lineaObtenida = redMetro.getLinea(1);
+		fail("not yet implemented");
 		assertEquals(1, lineaObtenida.getNumero());
 	}
 	
+	@Test
+	@Tag("TDD")
+	public void RedMetroGetLineaColor() {
+		Linea lineaObtenida = redMetro.getLinea("rojo");
+		fail("not yet implemented");
+		assertEquals("rojo", lineaObtenida.getColor());
+	}
 	
 }

@@ -60,4 +60,9 @@ public class RedMetro {
 		return null;
 	}
 
+	public Linea getLinea(String color) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

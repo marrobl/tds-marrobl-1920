@@ -97,8 +97,12 @@ public class RedMetro {
 	/**
 	 * Devuelve una lista de lineas de la red que pasan por la estacion indicada
 	 * por su nombre metido por parametro
+	 * Si no se encuentra ninguna linea que pase por la estacion indicada, 
+	 * se devuelve una lista vacia
+	 * 
 	 * @param nombreEstacion nombre identificativo de la estacion
 	 * @return lista de lineas que pasan por esa estacion
+	 * @throws cuando {@code nombreEstacion == null}
 	 */
 	public Linea[] getLineas(String nombreEstacion) {
 		// TODO Auto-generated method stub

@@ -47,7 +47,13 @@ public class RedMetro {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * Devuelve la linea que esta en la red a partir de su numero
+	 * 
+	 * @param numero numero de identificacion de la linea
+	 * @return linea contenida en la red
+	 */
 	public Linea getLinea(int numero) {
 		// TODO Auto-generated method stub
 		return null;

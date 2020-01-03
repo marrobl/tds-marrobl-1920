@@ -109,6 +109,15 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Consulta la estacion o estaciones en las que tienen correspondencia 
+	 * las dos lineas introducidas por parametro
+	 * Si no tienen correspondencia devuelven una lista vacia
+	 * @param linea1 linea primera
+	 * @param linea2 linea segunda
+	 * @return estacion o estaciones en las que estas lineas tienen correspondecia, 
+	 * o lista vacia si no tienen correspondencia
+	 */
 	public Estacion[] getCorrespondencia(Linea linea1, Linea linea2) {
 		// TODO Auto-generated method stub
 		return null;

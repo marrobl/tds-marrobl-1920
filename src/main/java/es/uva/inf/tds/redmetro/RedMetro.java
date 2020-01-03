@@ -30,6 +30,19 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Añade a la red la linea introducida por parametro
+	 * Esta linea no puede ser igual a ninguna de las que contiene la red
+	 * Teniendo asi un diferente color a las lineas que contiene la red y un numero consecutivo a estas
+	 * 
+	 * @param linea linea que se quiere añadir
+	 * 
+	 * @throws IllegalArgumentException {@code linea == null}
+	 * @throws IllegalArgumentException cuando el color de la linea coincide con algun color
+	 * de los que ya contiene red
+	 * @throws IllegalArgumentException si el numero de la linea no es consecutivo en la red
+	 * 
+	 */
 	public void addLinea(Linea linea) {
 		// TODO Auto-generated method stub
 		

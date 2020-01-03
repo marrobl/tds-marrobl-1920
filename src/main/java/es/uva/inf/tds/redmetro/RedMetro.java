@@ -83,13 +83,13 @@ public class RedMetro {
 	}
 
 	/**
-	 * Retira una linea de servicio temporalmente, introduciendo su numero
-	 * de identificacion
-	 * @param numero numero que identifica a la linea en la red de metro
+	 * Retira una linea de servicio temporalmente
+	 * @param lineaTercera numero que identifica a la linea en la red de metro
 	 */
-	public void retirarLinea(int numero) {
+	public void retirarLinea(Linea lineaTercera) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

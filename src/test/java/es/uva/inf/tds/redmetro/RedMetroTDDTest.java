@@ -139,8 +139,10 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void RedMetroRetirarLineaNumeroTest() {
 		Linea[] esperado = {lineaPrimera, lineaSegunda};
-		redMetro.retirarLinea(3);
+		redMetro.retirarLinea(lineaTercera);
 		assertArrayEquals(esperado, redMetro.getLineaEnServicio());
 	}
+	
+
 	
 }

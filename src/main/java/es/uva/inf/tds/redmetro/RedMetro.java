@@ -171,5 +171,10 @@ public class RedMetro {
 		
 	}
 
+	public Linea getConexionSinTrasbordo(Estacion estacion1, Estacion estacion2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

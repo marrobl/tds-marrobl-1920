@@ -15,6 +15,10 @@ import es.uva.inf.maps.CoordenadasGPS;
 public class RedMetroTDDTest {
 	private RedMetro redMetro;
 	private Linea lineaPrimera, lineaSegunda, lineaTercera, lineaCuarta;
+	private Estacion estacionInicial, estacionFinal;
+	private CoordenadasGPS[] coordenadasInicial;
+	private CoordenadasGPS[] coordenadasFinal; 
+	
 	@BeforeEach
 	public void setUp() {
 			CoordenadasGPS entrada1 = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
@@ -52,11 +56,11 @@ public class RedMetroTDDTest {
 			CoordenadasGPS entrada_1 = new CoordenadasGPS("030°38'06\"N","135°05'59\"E");
 			CoordenadasGPS salida_1 = new CoordenadasGPS("035°38'06\"N","132°05'59\"E");
 			CoordenadasGPS[] coordenadasInicial = {entrada_1, salida_1};
-	 		Estacion estacionInicial = new Estacion("Cuarta Estacion L4", coordenadasInicial);
+			estacionInicial = new Estacion("Cuarta Estacion L4", coordenadasInicial);
 			CoordenadasGPS entrada_2 = new CoordenadasGPS("068°38'06\"N","136°05'59\"E");
 			CoordenadasGPS salida_2 = new CoordenadasGPS("054°38'06\"N","135°05'59\"E");
 			CoordenadasGPS[] coordenadasFinal = {entrada_2, salida_2};
-	 		Estacion estacionFinal = new Estacion("Quinta Estacion L4", coordenadasFinal);
+			estacionFinal = new Estacion("Quinta Estacion L4", coordenadasFinal);
 	 		Estacion[] estaciones4 = {estacionInicial, estacionFinal};
 	 		lineaCuarta = new Linea(4,"negro",estaciones4);
 	}
@@ -64,6 +68,10 @@ public class RedMetroTDDTest {
 	@AfterEach
 	public void tearDown() {
 		redMetro = null;
+		lineaPrimera = null;
+		lineaSegunda = null;
+		lineaTercera = null;
+		lineaCuarta = null;
 	}
 
 	@Test
@@ -209,4 +217,17 @@ public class RedMetroTDDTest {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.reactivarLinea(null);});
 	}
 	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetConexionSinTrasbordo() {
+ 		estacionInicial = new Estacion("Cuarta Estacion L4", coordenadasInicial);
+		CoordenadasGPS entrada_2 = new CoordenadasGPS("068°38'06\"N","136°05'59\"E");
+		CoordenadasGPS salida_2 = new CoordenadasGPS("054°38'06\"N","135°05'59\"E");
+		CoordenadasGPS[] coordenadasFinal = {entrada_2, salida_2};
+		estacionFinal = new Estacion("Quinta Estacion L4", coordenadasFinal);
+ 		Estacion[] estaciones = {estacionInicial, estacionFinal};
+ 		lineaCuarta = new Linea(4,"negro",estaciones);
+ 		
+ 		assertEquals(lineaCuarta, redMetro.getConexionSinTrasbordo(estacionInicial, estacionFinal));
+	}
 }

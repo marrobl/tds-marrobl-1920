@@ -187,4 +187,11 @@ public class RedMetroTDDTest {
 		Linea[] esperado = {lineaPrimera, lineaSegunda};
 		assertArrayEquals(esperado, redMetro.getLineas());		
 	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroEliminarLineaExcepcion() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.eliminarLinea(null);});
+	}
+	
 }

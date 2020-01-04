@@ -68,7 +68,7 @@ public class RedMetroTDDTest {
 
 	@Test
 	@Tag("TDD")
-	public void RedMetroTest() {
+	public void testRedMetro() {
 		CoordenadasGPS coordEntrada1 = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
 		CoordenadasGPS coordSalida1 = new CoordenadasGPS("045°38'06\"N","132°05'59\"E");
 		CoordenadasGPS[] coordenadasInicial = {coordEntrada1, coordSalida1};
@@ -89,13 +89,13 @@ public class RedMetroTDDTest {
 
 	@Test
 	@Tag("TDD")
-	public void RedMetroExcepcionTest() {
+	public void testRedMetroExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> { RedMetro redDeMetro = new RedMetro(null);});
 	}
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroAnadirLineaTest() {
+	public void testRedMetroAnadirLinea() {
 		redMetro.addLinea(lineaCuarta);
 		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera, lineaCuarta};
 		assertArrayEquals(esperado, redMetro.getLineas());
@@ -103,13 +103,13 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroAnadirLineaExcepcionTest() {
+	public void testRedMetroAnadirLineaExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.addLinea(null);});
 	}
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroGetLineaNumero() {
+	public void testRedMetroGetLineaNumero() {
 		Linea lineaObtenida = redMetro.getLinea(1);
 		fail("not yet implemented");
 		assertEquals(1, lineaObtenida.getNumero());
@@ -117,7 +117,7 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroGetLineaColor() {
+	public void testRedMetroGetLineaColor() {
 		Linea lineaObtenida = redMetro.getLinea("rojo");
 		fail("not yet implemented");
 		assertEquals("rojo", lineaObtenida.getColor());
@@ -125,20 +125,20 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroGetLineaColorExcepcionTest() {
+	public void testRedMetroGetLineaColorExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {Linea linea = redMetro.getLinea(null);});
 	}
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroGetLineaEnServicioTest() {
+	public void testRedMetroGetLineaEnServicio() {
 		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
 		assertArrayEquals(esperado,redMetro.getLineaEnServicio());
 	}
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroRetirarLineaTest() {
+	public void testRedMetroRetirarLinea() {
 		Linea[] esperado = {lineaPrimera, lineaSegunda};
 		redMetro.retirarLinea(lineaTercera);
 		assertArrayEquals(esperado, redMetro.getLineaEnServicio());
@@ -146,26 +146,26 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroRetirarLineaExcepcionTest() {
+	public void testRedMetroRetirarLineaExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.retirarLinea(lineaCuarta);});
 	}
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroGetLineasEstacionTest() {
+	public void testRedMetroGetLineasEstacion() {
 		Linea[] esperado = {lineaPrimera, lineaTercera};
 		assertArrayEquals(esperado,redMetro.getLineas("Segunda Estacion L1"));
 	}
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroGetLineasEstacionExcepcionTest() {
+	public void testRedMetroGetLineasEstacionExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getLineas(null);});
 	}
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroConsultarCorrespondenciaTest() {
+	public void testRedMetroConsultarCorrespondencia() {
 		CoordenadasGPS coord_e = new CoordenadasGPS("0100°38'06\"N","136°05'59\"E");
 		CoordenadasGPS coord_s = new CoordenadasGPS("098°38'06\"N","135°05'59\"E");
 		CoordenadasGPS[] coordenadas = {coord_e, coord_s};
@@ -176,7 +176,15 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void RedMetroGetCorrespondeciaExcepcionTest() {
+	public void testRedMetroGetCorrespondeciaExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getCorrespondencia(null, lineaTercera);});
+	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroEliminarLinea() {
+		redMetro.eliminarLinea(lineaTercera);
+		Linea[] esperado = {lineaPrimera, lineaSegunda};
+		assertArrayEquals(esperado, redMetro.getLineas());		
 	}
 }

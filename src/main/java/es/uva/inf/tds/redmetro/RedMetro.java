@@ -140,5 +140,10 @@ public class RedMetro {
 		return null;
 	}
 
+	public void eliminarLinea(Linea linea) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

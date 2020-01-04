@@ -155,5 +155,10 @@ public class RedMetro {
 		
 	}
 
+	public void reactivarLinea(Linea linea) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

@@ -230,4 +230,10 @@ public class RedMetroTDDTest {
  		
  		assertEquals(lineaCuarta, redMetro.getConexionSinTrasbordo(estacionInicial, estacionFinal));
 	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetConexionSinTrasbordoExcepcion() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getConexionSinTrasbordo(null, estacionFinal);});
+	}
 }

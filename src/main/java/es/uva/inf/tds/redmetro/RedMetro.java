@@ -177,10 +177,14 @@ public class RedMetro {
 	 * Si hay conexion directa, devuelve la linea.
 	 * Si no hay conexion, no devuelve ninguna.
 	 * 
+	 * @pre.condition {@code estacion1 != null} y {@code estacion2 != null}
+	 * 
 	 * @param estacion1 estacion primera
 	 * @param estacion2 estacion segunda
 	 * @return linea en la que se encuentran las dos estaciones, o ninguna
 	 * si no se encuentran en la misma linea
+	 * 
+	 * @throws IllegalArgumentException si no se cumple la precondicion
 	 */
 	public Linea getConexionSinTrasbordo(Estacion estacion1, Estacion estacion2) {
 		// TODO Auto-generated method stub

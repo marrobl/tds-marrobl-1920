@@ -179,14 +179,14 @@ public class RedMetro {
 	 * 
 	 * @pre.condition {@code estacion1 != null} y {@code estacion2 != null}
 	 * 
-	 * @param estacion1 estacion primera
-	 * @param estacion2 estacion segunda
+	 * @param estacionPartida estacion de partida
+	 * @param estacionDestino estacion de destino
 	 * @return linea en la que se encuentran las dos estaciones, o ninguna
 	 * si no se encuentran en la misma linea
 	 * 
 	 * @throws IllegalArgumentException si no se cumple la precondicion
 	 */
-	public Linea getConexionSinTrasbordo(Estacion estacion1, Estacion estacion2) {
+	public Linea getConexionSinTrasbordo(Estacion estacionPartida, Estacion estacionDestino) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -198,11 +198,13 @@ public class RedMetro {
 	 * y la ultima linea, la estacion final.
 	 * Si no se encuentra conexion devuelve vacio
 	 * 
-	 * @param estacionInicial
-	 * @param estacionFinal
-	 * @return
+	 * @pre.condition {@code estacionInicial != null} y {@code estacionFinal != null}
+	 * @param estacionPartida estacion de partida
+	 * @param estacionDestino estacion de destino
+	 * @return lista de lineas ordenadas que conectan las estaciones y vacio si no existe ninguna linea que las conecte
+	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
-	public Linea[] getConexionTrasbordo(Estacion estacionInicial, Estacion estacionFinal) {
+	public Linea[] getConexionTrasbordo(Estacion estacionPartida, Estacion estacionDestino) {
 		// TODO Auto-generated method stub
 		return null;
 	}

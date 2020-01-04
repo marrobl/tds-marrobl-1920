@@ -155,6 +155,16 @@ public class RedMetro {
 		
 	}
 
+	/**
+	 * Reactiva el servicio de una linea de la red de metro
+	 * que previamente tiene que estar en la red pero sin servicio.
+	 * 
+	 * @pre.condition {@code linea != null}
+	 * @pre.condition {@code getLineas().contains(linea)}
+	 * @pre.condition {@code !getLineaEnServicio().contains(linea)}
+	 * @param linea
+	 * 
+	 */
 	public void reactivarLinea(Linea linea) {
 		// TODO Auto-generated method stub
 		

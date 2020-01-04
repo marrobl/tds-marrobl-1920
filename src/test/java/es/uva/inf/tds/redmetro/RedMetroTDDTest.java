@@ -15,7 +15,8 @@ import es.uva.inf.maps.CoordenadasGPS;
 public class RedMetroTDDTest {
 	private RedMetro redMetro;
 	private Linea lineaPrimera, lineaSegunda, lineaTercera, lineaCuarta;
-	private Estacion estacionInicial, estacionFinal;
+	private Estacion estacionInicial, estacionFinal, estacionInicial1, estacionFinal1;
+	private Estacion estacionInicial2, estacionIntermedia2, estacionFinal2;
 	private CoordenadasGPS[] coordenadasInicial;
 	private CoordenadasGPS[] coordenadasFinal; 
 	
@@ -24,26 +25,26 @@ public class RedMetroTDDTest {
 			CoordenadasGPS entrada1 = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
 			CoordenadasGPS salida1 = new CoordenadasGPS("045°38'06\"N","132°05'59\"E");
 			CoordenadasGPS[] coordenadasInicial1 = {entrada1, salida1};
-	 		Estacion estacionInicial1 = new Estacion("Primera Estacion L1", coordenadasInicial1);
+	 		estacionInicial1 = new Estacion("Primera Estacion L1", coordenadasInicial1);
 			CoordenadasGPS entrada2 = new CoordenadasGPS("058°38'06\"N","136°05'59\"E");
 			CoordenadasGPS salida2 = new CoordenadasGPS("064°38'06\"N","135°05'59\"E");
 			CoordenadasGPS[] coordenadasFinal1 = {entrada2, salida2};
-	 		Estacion estacionFinal1 = new Estacion("Segunda Estacion L1", coordenadasFinal1);
+	 		estacionFinal1 = new Estacion("Segunda Estacion L1", coordenadasFinal1);
 	 		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
 	 		lineaPrimera = new Linea(1,"rojo",estaciones1);
 	 		
 			CoordenadasGPS coord_entrada1 = new CoordenadasGPS("080°38'06\"N","135°05'59\"E");
 			CoordenadasGPS coord_salida1 = new CoordenadasGPS("085°38'06\"N","132°05'59\"E");
 			CoordenadasGPS[] coordenadasInicial2 = {coord_entrada1, coord_salida1};
-			Estacion estacionInicial2 = new Estacion("Primera Estacion L2", coordenadasInicial2);
+			estacionInicial2 = new Estacion("Primera Estacion L2", coordenadasInicial2);
 			CoordenadasGPS coord_entrada2 = new CoordenadasGPS("090°38'06\"N","136°05'59\"E");
 			CoordenadasGPS coord_salida2 = new CoordenadasGPS("095°38'06\"N","135°05'59\"E");
 			CoordenadasGPS[] coordenadasIntermedio2 = {coord_entrada2, coord_salida2};
-	 		Estacion estacionIntermedia2 = new Estacion("Segunda Estacion L2", coordenadasIntermedio2);
+	 		estacionIntermedia2 = new Estacion("Segunda Estacion L2", coordenadasIntermedio2);
 	 		CoordenadasGPS coord_entrada3 = new CoordenadasGPS("0100°38'06\"N","136°05'59\"E");
 			CoordenadasGPS coord_salida3 = new CoordenadasGPS("098°38'06\"N","135°05'59\"E");
 			CoordenadasGPS[] coordenadasFinal2 = {coord_entrada3, coord_salida3};
-	 		Estacion estacionFinal2 = new Estacion("Tercera Estacion L2", coordenadasFinal2);
+	 		estacionFinal2 = new Estacion("Tercera Estacion L2", coordenadasFinal2);
 	 		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
 	 		lineaSegunda = new Linea(2, "azul", estaciones2);
 	 		
@@ -220,11 +221,6 @@ public class RedMetroTDDTest {
 	@Test
 	@Tag("TDD")
 	public void testRedMetroGetConexionSinTrasbordo() {
- 		estacionInicial = new Estacion("Cuarta Estacion L4", coordenadasInicial);
-		CoordenadasGPS entrada_2 = new CoordenadasGPS("068°38'06\"N","136°05'59\"E");
-		CoordenadasGPS salida_2 = new CoordenadasGPS("054°38'06\"N","135°05'59\"E");
-		CoordenadasGPS[] coordenadasFinal = {entrada_2, salida_2};
-		estacionFinal = new Estacion("Quinta Estacion L4", coordenadasFinal);
  		Estacion[] estaciones = {estacionInicial, estacionFinal};
  		lineaCuarta = new Linea(4,"negro",estaciones);
  		
@@ -235,5 +231,18 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void testRedMetroGetConexionSinTrasbordoExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getConexionSinTrasbordo(null, estacionFinal);});
+	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetConexionTrasbordo() {
+		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
+ 		lineaPrimera = new Linea(1,"rojo",estaciones1);
+ 		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
+ 		lineaSegunda = new Linea(2, "azul", estaciones2);
+		Estacion[] estaciones3 = {estacionFinal1, estacionFinal2};
+ 		lineaTercera = new Linea(3, "verde", estaciones3);
+ 		Linea[] esperado = {lineaPrimera, lineaTercera, lineaSegunda};
+ 		assertArrayEquals(esperado, redMetro.getConexionTrasbordo(estacionInicial1, estacionIntermedia2));
 	}
 }

@@ -170,6 +170,26 @@
 					<targetJdk>1.8</targetJdk>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<tags>
+						<tag>
+							<name>pre.condition</name>
+							<!-- precondicion -->
+							<placement>a</placement>
+							<head>Requires:</head>
+						</tag>
+						<tag>
+							<name>post.condition</name>
+							<!-- postcondicion -->
+							<placement>a</placement>
+							<head>Ensures:</head>
+						</tag>
+					</tags>
+				</configuration>
+			</plugin>
 		</plugins>
 	</reporting>
 

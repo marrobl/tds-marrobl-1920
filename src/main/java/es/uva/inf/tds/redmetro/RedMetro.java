@@ -9,20 +9,23 @@ public class RedMetro {
 	 * Una red de metro tiene que tener al menos dos lineas. 
 	 * Una linea esta univocamente identificada en la red por un numero consecutivo
 	 * y un color que no puede coincidir con colores de otras lineas de esa red
+	 * Las lineas estan en servicio
+	 * 
+	 * @pre.condition {@code lineas != null}
+	 * @pre.condition {@code lineas.size()>=2}
+	 * @pre.condition las lineas tienen numeros consecutivos
+	 * @pre.condition las lineas tienen diferentes colores
 	 * 
 	 * @param lineas conjunto de Lineas que forman la red
 	 * 
-	 * @throws IllegalArgumentException cuando {@code lineas == null}
-	 * @throws IllegalArgumentException cuando {@code lineas.size()<2}
-	 * @throws IllegalArgumentException cuando las lineas no son univocamente identificadas en la red por numero consecutivo
-	 * @throws IllegalArgumentException cuando las lineas no tienen un color unico en esa red
+	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public RedMetro(Linea... lineas) {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * Consulta las lineas que pertenecen a la red de metro, ya esten desactivadas o eliminadas
+	 * Consulta las lineas que pertenecen a la red de metro, ya esten en servicio o fuera de servicio
 	 * @return lineas que forman la red
 	 */
 	public Linea[] getLineas() {
@@ -35,12 +38,13 @@ public class RedMetro {
 	 * Esta linea no puede ser igual a ninguna de las que contiene la red
 	 * Teniendo asi un diferente color a las lineas que contiene la red y un numero consecutivo a estas
 	 * 
+	 * @pre.condition {@code linea != null}
+	 * @pre.condition cuando el color de la linea coincide con alguno de las lineas existentes
+	 * @pre.condition cuando el numero de la linea no es consecutivo en la red
+	 * 
 	 * @param linea linea que se quiere añadir
 	 * 
-	 * @throws IllegalArgumentException {@code linea == null}
-	 * @throws IllegalArgumentException cuando el color de la linea coincide con algun color
-	 * de los que ya contiene red
-	 * @throws IllegalArgumentException si el numero de la linea no es consecutivo en la red
+	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 * 
 	 */
 	public void addLinea(Linea linea) {
@@ -64,9 +68,10 @@ public class RedMetro {
 	 * Devuelve la linea que esta en la red a partir de su color
 	 * Si la linea no se encuentra en la red devuelve null
 	 * 
+	 * @pre.condition {@code color != null}
 	 * @param color color de identificacion de la linea
 	 * @return linea contenida en la red
-	 * @throws IllegalArgumentException cuando {@code color == null}
+	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea getLinea(String color) {
 		// TODO Auto-generated method stub
@@ -86,8 +91,12 @@ public class RedMetro {
 	 * Retira una linea de servicio temporalmente
 	 * La linea tiene que estar en la red
 	 * 
-	 * @param lineaTercera numero que identifica a la linea en la red de metro
-	 * @throws IllegalArgumentException cuando la linea no se encuentra en la red
+	 * @pre.condition la linea tiene que formar parte de la red
+	 * @pre.condition {@code getLineaEnServicio().size()>2}
+	 * @param linea linea que se retira de servicio en la red de metro
+	 * 
+	 * @post.condition {@code getLineaEnServicio().size()>=2}
+	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public void retirarLinea(Linea linea) {
 		// TODO Auto-generated method stub
@@ -96,13 +105,16 @@ public class RedMetro {
 
 	/**
 	 * Devuelve una lista de lineas de la red que pasan por la estacion indicada
-	 * por su nombre metido por parametro
+	 * por su nombre metido por parametro.
+	 * Solo se devuelven las lineas que esten en servicio.
 	 * Si no se encuentra ninguna linea que pase por la estacion indicada, 
-	 * se devuelve una lista vacia
+	 * se devuelve una lista vacia.
+	 * 
+	 * @pre.condition {@code nombreEstacion != null}
 	 * 
 	 * @param nombreEstacion nombre identificativo de la estacion
-	 * @return lista de lineas que pasan por esa estacion
-	 * @throws cuando {@code nombreEstacion == null}
+	 * @return lista de lineas en servicio que pasan por esa estacion
+	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea[] getLineas(String nombreEstacion) {
 		// TODO Auto-generated method stub
@@ -113,11 +125,15 @@ public class RedMetro {
 	 * Consulta la estacion o estaciones en las que tienen correspondencia 
 	 * las dos lineas introducidas por parametro
 	 * Si no tienen correspondencia devuelven una lista vacia
+	 * Las lineas tienen que estar en servicio
+	 * 
+	 * @pre.condition {@code linea1 != null} y {@code linea2 != null}
+	 * @pre.condition linea1 y linea2 tienen que estar en servicio en la red
 	 * @param linea1 linea primera
 	 * @param linea2 linea segunda
 	 * @return estacion o estaciones en las que estas lineas tienen correspondecia, 
 	 * o lista vacia si no tienen correspondencia
-	 * @throws IllegalArgumentException cuando {@code linea 1 == null} || {@code linea2 ==  null} 
+	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public Estacion[] getCorrespondencia(Linea linea1, Linea linea2) {
 		// TODO Auto-generated method stub

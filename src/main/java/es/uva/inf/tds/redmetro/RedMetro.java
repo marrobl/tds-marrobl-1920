@@ -140,6 +140,15 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Elimina la linea definitivamente de la red de metro.
+	 * La linea tiene que formar parte de la red de metro
+	 * 
+	 * @pre.condition {@code linea != null}
+	 * @pre.condition {@code getLinea.contains(linea)
+	 * @param linea linea que se quiere eliminar de la red de metro
+	 *
+	 */
 	public void eliminarLinea(Linea linea) {
 		// TODO Auto-generated method stub
 		

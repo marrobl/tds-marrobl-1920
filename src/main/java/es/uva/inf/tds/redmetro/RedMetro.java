@@ -171,6 +171,17 @@ public class RedMetro {
 		
 	}
 
+	/**
+	 * Consulta si hay conexion entre las dos estaciones introducidas 
+	 * por parametro en la misma linea, es decir, sin trasbordo.
+	 * Si hay conexion directa, devuelve la linea.
+	 * Si no hay conexion, no devuelve ninguna.
+	 * 
+	 * @param estacion1 estacion primera
+	 * @param estacion2 estacion segunda
+	 * @return linea en la que se encuentran las dos estaciones, o ninguna
+	 * si no se encuentran en la misma linea
+	 */
 	public Linea getConexionSinTrasbordo(Estacion estacion1, Estacion estacion2) {
 		// TODO Auto-generated method stub
 		return null;

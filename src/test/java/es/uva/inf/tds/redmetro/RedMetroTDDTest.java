@@ -203,4 +203,10 @@ public class RedMetroTDDTest {
 		assertArrayEquals(esperado, redMetro.getLineaEnServicio());
 	}
 	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroReactivarLineaExcepcion() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.reactivarLinea(null);});
+	}
+	
 }

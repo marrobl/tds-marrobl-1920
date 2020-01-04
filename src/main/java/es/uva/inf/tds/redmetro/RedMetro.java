@@ -162,8 +162,9 @@ public class RedMetro {
 	 * @pre.condition {@code linea != null}
 	 * @pre.condition {@code getLineas().contains(linea)}
 	 * @pre.condition {@code !getLineaEnServicio().contains(linea)}
-	 * @param linea
+	 * @param linea linea que se quiere reactivar su servicio
 	 * 
+	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones 
 	 */
 	public void reactivarLinea(Linea linea) {
 		// TODO Auto-generated method stub

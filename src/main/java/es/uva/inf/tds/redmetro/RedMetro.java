@@ -191,6 +191,17 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Consulta si hay conexion entre las dos estaciones introducidas en la red.
+	 * Si hay conexion entre las dos estaciones dadas devuelve la lista de lineas
+	 * ordenadas, siendo la primera linea la que contiene la estacion de partida
+	 * y la ultima linea, la estacion final.
+	 * Si no se encuentra conexion devuelve vacio
+	 * 
+	 * @param estacionInicial
+	 * @param estacionFinal
+	 * @return
+	 */
 	public Linea[] getConexionTrasbordo(Estacion estacionInicial, Estacion estacionFinal) {
 		// TODO Auto-generated method stub
 		return null;

@@ -95,6 +95,30 @@ public class RedMetroBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	public void testRedMetroLineasIgualColor() {
+		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
+		lineaPrimera = new Linea(1,"rojo",estaciones1);
+		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
+		lineaSegunda = new Linea(2, "rojo", estaciones2);
+		Linea[] lineasMismoColor = {lineaPrimera, lineaSegunda};
+		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		RedMetro redDeMetro = new RedMetro(lineasMismoColor);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroLineasIgualNum() {
+		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
+		lineaPrimera = new Linea(1,"rojo",estaciones1);
+		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
+		lineaSegunda = new Linea(1, "azul", estaciones2);
+		Linea[] lineasMismoNumero = {lineaPrimera, lineaSegunda};
+		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
 	public void testRedMetroJsonUnaLinea() {
 		String json = "{lineaPrimera}";
 		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
@@ -109,5 +133,29 @@ public class RedMetroBlackBoxTest {
 		assertNotNull(red);
 		Linea[] esperado = {lineaPrimera, lineaSegunda};
 		assertArrayEquals(esperado, red.getLineas());
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroLineasIgualColorJSon() {
+		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
+		lineaPrimera = new Linea(1,"rojo",estaciones1);
+		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
+		lineaSegunda = new Linea(2, "rojo", estaciones2);
+		String lineasMismoColor = "[lineaPrimera, lineaSegunda]";
+		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		RedMetro redDeMetro = new RedMetro(lineasMismoColor);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroLineasIgualNunJson() {
+		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
+		lineaPrimera = new Linea(1,"rojo",estaciones1);
+		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
+		lineaSegunda = new Linea(1, "azul", estaciones2);
+		String lineasMismoNumero = "[lineaPrimera, lineaSegunda]";
+		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
 	}
 }

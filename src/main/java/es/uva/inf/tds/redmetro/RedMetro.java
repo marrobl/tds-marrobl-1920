@@ -70,6 +70,7 @@ public class RedMetro {
 	 * @pre.condition {@code linea != null}
 	 * @pre.condition el color de la linea no tiene que coincidir con alguno de las lineas existentes
 	 * @pre.condition el numero de la linea tiene que ser consecutivo en la red
+	 * @pre.condition el numero de la linea no puede coincidir con ninguno de los existentes
 	 * 
 	 * @param linea linea que se quiere añadir
 	 * 

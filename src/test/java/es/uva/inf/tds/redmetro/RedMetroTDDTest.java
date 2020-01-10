@@ -13,9 +13,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
-
-import com.google.gson.*;
-
 import es.uva.inf.maps.CoordenadasGPS;
 
 public class RedMetroTDDTest {
@@ -23,7 +20,9 @@ public class RedMetroTDDTest {
 	private Linea lineaPrimera, lineaSegunda, lineaTercera, lineaCuarta;
 	private Estacion estacionInicial, estacionFinal, estacionInicial1, estacionFinal1;
 	private Estacion estacionInicial2, estacionIntermedia2, estacionFinal2;
+	@SuppressWarnings("unused")
 	private CoordenadasGPS[] coordenadasInicial;
+	@SuppressWarnings("unused")
 	private CoordenadasGPS[] coordenadasFinal; 
 	
 	@BeforeEach
@@ -108,7 +107,8 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void testRedMetroExcepcion() {
 		Linea[] lineaNull = null;
-		assertThrows(IllegalArgumentException.class, () -> { RedMetro redDeMetro = new RedMetro(lineaNull);});
+		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		RedMetro redDeMetro = new RedMetro(lineaNull);});
 	}
 	
 	@Test
@@ -144,7 +144,8 @@ public class RedMetroTDDTest {
 	@Test
 	@Tag("TDD")
 	public void testRedMetroGetLineaColorExcepcion() {
-		assertThrows(IllegalArgumentException.class, () -> {Linea linea = redMetro.getLinea(null);});
+		assertThrows(IllegalArgumentException.class, () -> {@SuppressWarnings("unused")
+		Linea linea = redMetro.getLinea(null);});
 	}
 	
 	@Test
@@ -303,6 +304,7 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void testRedMetroGetInfoRedMetro() throws JSONException {
 		Linea[] linea = {lineaPrimera, lineaSegunda};
+		@SuppressWarnings("unused")
 		RedMetro red = new RedMetro(linea);
 		JSONAssert.assertEquals("[lineaPrimera, lineaSegunda]", redMetro.getInfoRed(),JSONCompareMode.STRICT);
 	}
@@ -319,6 +321,7 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void testRedMetroCrearAPartirJsonExcepcion() {
 		String jsonNull = null;
-		assertThrows(IllegalArgumentException.class, () -> {RedMetro red = new RedMetro(jsonNull);});
+		assertThrows(IllegalArgumentException.class, () -> {@SuppressWarnings("unused")
+		RedMetro red = new RedMetro(jsonNull);});
 	}
 }

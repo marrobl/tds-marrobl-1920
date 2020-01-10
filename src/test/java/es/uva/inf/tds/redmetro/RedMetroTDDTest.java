@@ -134,6 +134,7 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void testRedMetroGetLineaNumero() {
 		Linea lineaObtenida = redMetro.getLinea(1);
+		// TODO cambiar cuando se implemente
 		fail("not yet implemented");
 		assertEquals(1, lineaObtenida.getNumero());
 	}
@@ -142,6 +143,7 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void testRedMetroGetLineaColor() {
 		Linea lineaObtenida = redMetro.getLinea("rojo");
+		// TODO cambiar cuando se implemente
 		fail("not yet implemented");
 		assertEquals("rojo", lineaObtenida.getColor());
 	}
@@ -274,6 +276,7 @@ public class RedMetroTDDTest {
 		CoordenadasGPS coord2 = new CoordenadasGPS("045°38'06\"N","132°05'59\"E");
 		CoordenadasGPS[] coordenadasInicial = {coord1, coord2};
  		Estacion estacionInicial = new Estacion("Primera Estacion", coordenadasInicial);
+ 		// TODO cambiar cuando se implemente
  		fail("not yet implemented");
  		assertArrayEquals(estacionInicial.getCoordenadasGPS(), redMetro.getEstacionCercana(coord1,400).getCoordenadasGPS());
 	}
@@ -318,6 +321,7 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void testRedMetroCrearAPartirJson() {
 		RedMetro red = new RedMetro("[lineaPrimera, lineaSegunda, lineaTercera]");
+		// TODO cambiar cuando se implemente
 		fail("not yet implemented");
 		assertArrayEquals(redMetro.getLineas(),red.getLineas());
 	}

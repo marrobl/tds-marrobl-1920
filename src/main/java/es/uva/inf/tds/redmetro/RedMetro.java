@@ -63,12 +63,13 @@ public class RedMetro {
 
 	/**
 	 * Añade a la red la linea introducida por parametro
-	 * Esta linea no puede ser igual a ninguna de las que contiene la red
+	 * Esta linea no puede ser igual a ninguna de las que ya contiene la red
 	 * Teniendo asi un diferente color a las lineas que contiene la red y un numero consecutivo a estas
+	 * La linea se añade en servicio
 	 * 
 	 * @pre.condition {@code linea != null}
-	 * @pre.condition cuando el color de la linea coincide con alguno de las lineas existentes
-	 * @pre.condition cuando el numero de la linea no es consecutivo en la red
+	 * @pre.condition el color de la linea no tiene que coincidir con alguno de las lineas existentes
+	 * @pre.condition el numero de la linea tiene que ser consecutivo en la red
 	 * 
 	 * @param linea linea que se quiere añadir
 	 * 
@@ -118,6 +119,8 @@ public class RedMetro {
 	/**
 	 * Retira una linea de servicio temporalmente
 	 * La linea tiene que estar en la red
+	 * Para que se pueda retirar una linea de la red, al menos tienen
+	 * que quedar dos lineas en servicio
 	 * 
 	 * @pre.condition la linea tiene que formar parte de la red
 	 * @pre.condition {@code getLineaEnServicio().size()>2}
@@ -255,7 +258,7 @@ public class RedMetro {
 	}
 
 	/**
-	 * Devuelve informacion en forma de objeto JSON sobre las lineas
+	 * Devuelve informacion en formato JSON sobre las lineas
 	 * en la que se encuentra la estacion
 	 * Devuelve una lista de lineas si hay mas de una coincidencia
 	 * Si no hay ninguna linea que contenga la estacion, devuelve vacio

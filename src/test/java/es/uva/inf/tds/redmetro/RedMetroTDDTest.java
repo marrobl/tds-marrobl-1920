@@ -288,4 +288,10 @@ public class RedMetroTDDTest {
  		
  		JSONAssert.assertEquals("[lineaPrimera, lineaTercera0]", redMetro.getInfoLineas("Segunda Estacion L1"),JSONCompareMode.STRICT);
 	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetInfoLineasExcepcion() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas(null);});
+	}
 }

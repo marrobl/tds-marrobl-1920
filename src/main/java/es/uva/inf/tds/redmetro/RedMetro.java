@@ -122,7 +122,9 @@ public class RedMetro {
 	 * La linea tiene que estar en la red
 	 * Para que se pueda retirar una linea de la red, al menos tienen
 	 * que quedar dos lineas en servicio
+	 * Si la linea ya se encuentra fuera de servicio, el metodo queda sin efecto
 	 * 
+	 * @pre.condition {@code linea != null}
 	 * @pre.condition la linea tiene que formar parte de la red
 	 * @pre.condition {@code getLineaEnServicio().size()>2}
 	 * @param linea linea que se retira de servicio en la red de metro

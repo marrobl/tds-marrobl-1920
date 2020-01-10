@@ -233,6 +233,7 @@ public class RedMetro {
 	 * en la que se encuentra la estacion
 	 * Devuelve una lista de lineas si hay mas de una coincidencia
 	 * Si no hay ninguna linea que contenga la estacion, devuelve vacio
+	 * @pre.condition {@code nombreEstacion!= null}
 	 * @param nombreEstacion nombre de la estacion 
 	 * @return JSONObject lista de lineas que contienen a la estacion, vacio en cualquier otro caso
 	 */

@@ -228,6 +228,14 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Devuelve informacion en forma de objeto JSON sobre las lineas
+	 * en la que se encuentra la estacion
+	 * Devuelve una lista de lineas si hay mas de una coincidencia
+	 * Si no hay ninguna linea que contenga la estacion, devuelve vacio
+	 * @param nombreEstacion nombre de la estacion 
+	 * @return JSONObject lista de lineas que contienen a la estacion, vacio en cualquier otro caso
+	 */
 	public JSONObject getInfoLineas(String nombreEstacion) {
 		// TODO Auto-generated method stub
 		return null;

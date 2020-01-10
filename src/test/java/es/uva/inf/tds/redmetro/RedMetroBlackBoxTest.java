@@ -286,4 +286,18 @@ public class RedMetroBlackBoxTest {
 		fail("not yet implemented");
 		assertNull(redMetro.getConexionSinTrasbordo(estacionInicial1, estacionInicial2));
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetConexionTrasbordoExcepcion2() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getConexionTrasbordo(null,estacionFinal);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetConexionTrasbordoNoHay() {
+		//TODO cambiar cuando se implemente
+		fail("not yet implemented");
+		assertNull(redMetro.getConexionTrasbordo(estacionInicial1, estacionFinal));
+	}
 }

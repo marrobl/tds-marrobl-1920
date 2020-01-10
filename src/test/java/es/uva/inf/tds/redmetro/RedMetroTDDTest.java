@@ -1,9 +1,10 @@
 package es.uva.inf.tds.redmetro;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.json.JSONException;
 import org.junit.jupiter.api.AfterEach;
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+
+import com.google.gson.*;
 
 import es.uva.inf.maps.CoordenadasGPS;
 
@@ -286,12 +289,20 @@ public class RedMetroTDDTest {
  		Estacion[] estaciones3 = {estacionFinal1, estacionFinal2};
  		lineaTercera = new Linea(3, "verde", estaciones3);
  		
- 		JSONAssert.assertEquals("[lineaPrimera, lineaTercera0]", redMetro.getInfoLineas("Segunda Estacion L1"),JSONCompareMode.STRICT);
+ 		JSONAssert.assertEquals("[lineaPrimera, lineaTercera]", redMetro.getInfoLineas("Segunda Estacion L1"),JSONCompareMode.STRICT);
 	}
 	
 	@Test
 	@Tag("TDD")
 	public void testRedMetroGetInfoLineasExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas(null);});
+	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetInfoRedMetro() throws JSONException {
+		Linea[] linea = {lineaPrimera, lineaSegunda};
+		RedMetro red = new RedMetro(linea);
+		JSONAssert.assertEquals("[lineaPrimera, lineaSegunda]", redMetro.getInfoRed(),JSONCompareMode.STRICT);
 	}
 }

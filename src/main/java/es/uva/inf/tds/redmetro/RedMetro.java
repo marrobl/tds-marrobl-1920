@@ -242,5 +242,10 @@ public class RedMetro {
 		return null;
 	}
 
+	public JSONObject getInfoRed() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

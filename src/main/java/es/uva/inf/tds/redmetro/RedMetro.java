@@ -139,7 +139,7 @@ public class RedMetro {
 
 	/**
 	 * Devuelve una lista de lineas de la red que pasan por la estacion indicada
-	 * por su nombre metido por parametro.
+	 * por su nombre introducido por parametro.
 	 * Solo se devuelven las lineas que esten en servicio.
 	 * Si no se encuentra ninguna linea que pase por la estacion indicada, 
 	 * se devuelve una lista vacia.

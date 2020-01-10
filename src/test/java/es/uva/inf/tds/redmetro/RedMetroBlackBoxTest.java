@@ -92,4 +92,22 @@ public class RedMetroBlackBoxTest {
 		assertNotNull(red);
 		assertArrayEquals(linea, red.getLineas());
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroJsonUnaLinea() {
+		String json = "{lineaPrimera}";
+		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		RedMetro redDeMetro = new RedMetro(json);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroJsonDosLineas() {
+		String json = "[lineaPrimera, lineaSegunda]";
+		RedMetro red = new RedMetro(json);
+		assertNotNull(red);
+		Linea[] esperado = {lineaPrimera, lineaSegunda};
+		assertArrayEquals(esperado, red.getLineas());
+	}
 }

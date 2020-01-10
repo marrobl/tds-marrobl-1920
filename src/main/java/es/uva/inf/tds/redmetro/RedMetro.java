@@ -2,6 +2,8 @@ package es.uva.inf.tds.redmetro;
 
 import java.util.ArrayList;
 
+import es.uva.inf.maps.CoordenadasGPS;
+
 public class RedMetro {
 
 	/**
@@ -205,6 +207,11 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea[] getConexionTrasbordo(Estacion estacionPartida, Estacion estacionDestino) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Estacion getEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {
 		// TODO Auto-generated method stub
 		return null;
 	}

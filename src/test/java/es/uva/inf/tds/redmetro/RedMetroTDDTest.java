@@ -68,11 +68,13 @@ public class RedMetroTDDTest {
 	
 	@AfterEach
 	public void tearDown() {
-		redMetro = null;
-		lineaPrimera = null;
-		lineaSegunda = null;
-		lineaTercera = null;
-		lineaCuarta = null;
+		redMetro = null; 		lineaPrimera = null;
+		lineaSegunda = null;	lineaTercera = null;
+		lineaCuarta = null;		estacionInicial = null;
+		estacionFinal = null; 	estacionInicial1 = null;
+		estacionFinal1 = null; 	estacionInicial2 = null;
+		estacionIntermedia2 = null;	estacionFinal2 = null;
+		coordenadasInicial = null; 	coordenadasFinal = null;
 	}
 
 	@Test
@@ -251,5 +253,17 @@ public class RedMetroTDDTest {
 	public void testRedMetroGetConexionTrasbordoExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getConexionTrasbordo(null, estacionFinal);});
 	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetEstacionCercana() {
+		CoordenadasGPS coord1 = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
+		CoordenadasGPS coord2 = new CoordenadasGPS("045°38'06\"N","132°05'59\"E");
+		CoordenadasGPS[] coordenadasInicial = {coord1, coord2};
+ 		Estacion estacionInicial = new Estacion("Primera Estacion", coordenadasInicial);
+ 		fail("not yet implemented");
+ 		assertArrayEquals(estacionInicial.getCoordenadasGPS(), redMetro.getEstacionCercana(coord1,400).getCoordenadasGPS());
+	}
+	
 	
 }

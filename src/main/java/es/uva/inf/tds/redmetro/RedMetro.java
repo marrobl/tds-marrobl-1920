@@ -151,8 +151,9 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea[] getLineas(String nombreEstacion) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Cambiar fake implementation
+		Linea[] lineas = {};
+		return lineas;
 	}
 
 	/**

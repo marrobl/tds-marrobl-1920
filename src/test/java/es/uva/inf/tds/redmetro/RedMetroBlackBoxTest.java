@@ -203,6 +203,7 @@ public class RedMetroBlackBoxTest {
 		
  		assertThrows(IllegalArgumentException.class, () -> { redMetro.retirarLinea(lineaSegunda);;});
 	}
+
 	
 	@Test
 	@Tag("BlackBox")
@@ -246,4 +247,29 @@ public class RedMetroBlackBoxTest {
 		
 	}
 	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetLineaColorDevuelveNull() {
+		Linea lineaVacia = redMetro.getLinea("morado");
+		//TODO cambiar
+		fail("not yet implemented");
+		assertNull(lineaVacia);
+	}
+	
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetLineaNumeroDevuelveNull() {
+		Linea lineaVacia = redMetro.getLinea(6);
+		//TODO cambiar
+		fail("Not yet implemented");
+		assertNull(lineaVacia);
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetLineasEstacionDevuelveNull() {
+		Linea[] lineaVacia = redMetro.getLineas("nombre estacion ninguna");
+		assertNull(lineaVacia);
+	}
 }

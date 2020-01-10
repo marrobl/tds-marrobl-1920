@@ -192,10 +192,10 @@ public class RedMetro {
 	/**
 	 * Reactiva el servicio de una linea de la red de metro
 	 * que previamente tiene que estar en la red pero sin servicio.
+	 * Si se reactiva una que ya esta activa, queda sin efecto
 	 * 
 	 * @pre.condition {@code linea != null}
 	 * @pre.condition {@code getLineas().contains(linea)}
-	 * @pre.condition {@code !getLineaEnServicio().contains(linea)}
 	 * @param linea linea que se quiere reactivar su servicio
 	 * 
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones 

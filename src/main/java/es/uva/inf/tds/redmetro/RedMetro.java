@@ -241,6 +241,13 @@ public class RedMetro {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	/**
+	 * Devuelve la informacion de la red de metro en formato JSON
+	 * Devuelve la informacion de todas, tanto en servicio como sin servicio,
+	 * de las lineas que conforman esa red
+	 * 
+	 * @return objeto JSON que representa todas las lineas que tiene la red de metro
+	 */
 
 	public JSONObject getInfoRed() {
 		// TODO Auto-generated method stub

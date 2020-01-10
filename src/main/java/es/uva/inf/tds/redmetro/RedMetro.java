@@ -26,6 +26,23 @@ public class RedMetro {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Inicializador de una red de metro a partir de un objeto JSON 
+	 * que contiene toda la informacion sobre las lineas. 
+	 * Una red de metro tiene que tener al menos dos lineas. 
+	 * Una linea esta univocamente identificada en la red por un numero consecutivo
+	 * y un color que no puede coincidir con colores de otras lineas de esa red
+	 * Las lineas estan en servicio
+	 * 
+	 * @pre.condition {@code json != null}
+	 * @pre.condition lineas tienen que ser al menos dos
+	 * @pre.condition las lineas tienen numeros consecutivos
+	 * @pre.condition las lineas tienen diferentes colores
+	 * 
+	 * @param json formato json que contiene toda la informacion sobre la red
+	 * 
+	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
+	 */
 	public RedMetro(String json) {
 		// TODO Auto-generated constructor stub
 	}

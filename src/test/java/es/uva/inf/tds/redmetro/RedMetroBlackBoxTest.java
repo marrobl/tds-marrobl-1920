@@ -113,7 +113,8 @@ public class RedMetroBlackBoxTest {
 		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
 		lineaSegunda = new Linea(1, "azul", estaciones2);
 		Linea[] lineasMismoNumero = {lineaPrimera, lineaSegunda};
-		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		assertThrows(IllegalArgumentException.class, () -> { 
+		@SuppressWarnings("unused")
 		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
 	}
 	
@@ -121,7 +122,8 @@ public class RedMetroBlackBoxTest {
 	@Tag("BlackBox")
 	public void testRedMetroJsonUnaLinea() {
 		String json = "{lineaPrimera}";
-		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		assertThrows(IllegalArgumentException.class, () -> { 
+		@SuppressWarnings("unused")
 		RedMetro redDeMetro = new RedMetro(json);});
 	}
 	
@@ -143,7 +145,8 @@ public class RedMetroBlackBoxTest {
 		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
 		lineaSegunda = new Linea(2, "rojo", estaciones2);
 		String lineasMismoColor = "[lineaPrimera, lineaSegunda]";
-		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		assertThrows(IllegalArgumentException.class, () -> { 
+		@SuppressWarnings("unused")
 		RedMetro redDeMetro = new RedMetro(lineasMismoColor);});
 	}
 	
@@ -155,7 +158,8 @@ public class RedMetroBlackBoxTest {
 		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
 		lineaSegunda = new Linea(1, "azul", estaciones2);
 		String lineasMismoNumero = "[lineaPrimera, lineaSegunda]";
-		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
+		assertThrows(IllegalArgumentException.class, () -> { 
+		@SuppressWarnings("unused")
 		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
 	}
 	
@@ -227,4 +231,11 @@ public class RedMetroBlackBoxTest {
 		assertArrayEquals(esperado, redMetro.getCorrespondencia(lineaPrimera, lineaSegunda));
 	}
 	
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroEliminarLineaQueNoEstaEnLaRed() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.eliminarLinea(lineaCuarta);});
+		
+	}
 }

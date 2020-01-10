@@ -1,5 +1,7 @@
 package es.uva.inf.tds.redmetro;
 
+import org.json.JSONObject;
+
 import es.uva.inf.maps.CoordenadasGPS;
 
 public class RedMetro {
@@ -222,6 +224,11 @@ public class RedMetro {
 	 * @return estacion cercana si se ha encontrado alguna, nada en cualquier otro caso
 	 */
 	public Estacion getEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public JSONObject getInfoLineas(String nombreEstacion) {
 		// TODO Auto-generated method stub
 		return null;
 	}

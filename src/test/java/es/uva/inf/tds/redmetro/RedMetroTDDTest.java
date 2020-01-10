@@ -5,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import org.json.JSONException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import es.uva.inf.maps.CoordenadasGPS;
 
@@ -269,5 +272,20 @@ public class RedMetroTDDTest {
 	@Tag("TDD")
 	public void testRedMetroGetEstacionCercanaExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getEstacionCercana(null, 0);});
+	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetInfoLineas() throws JSONException {
+		CoordenadasGPS entrada2 = new CoordenadasGPS("058°38'06\"N","136°05'59\"E");
+		CoordenadasGPS salida2 = new CoordenadasGPS("064°38'06\"N","135°05'59\"E");
+		CoordenadasGPS[] coordenadasFinal1 = {entrada2, salida2};
+		estacionFinal1 = new Estacion("Segunda Estacion L1", coordenadasFinal1);
+		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
+ 		lineaPrimera = new Linea(1,"rojo",estaciones1);
+ 		Estacion[] estaciones3 = {estacionFinal1, estacionFinal2};
+ 		lineaTercera = new Linea(3, "verde", estaciones3);
+ 		
+ 		JSONAssert.assertEquals("[lineaPrimera, lineaTercera0]", redMetro.getInfoLineas("Segunda Estacion L1"),JSONCompareMode.STRICT);
 	}
 }

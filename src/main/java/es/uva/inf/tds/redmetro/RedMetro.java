@@ -3,7 +3,12 @@ package es.uva.inf.tds.redmetro;
 import org.json.JSONObject;
 
 import es.uva.inf.maps.CoordenadasGPS;
-
+/**
+ * Clase que representa una red de metro, formada por al menos dos lineas.
+ * 
+ * @author marrobl Maria Robles del Blanco
+ *
+ */
 public class RedMetro {
 
 	/**

@@ -15,6 +15,11 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import es.uva.inf.maps.CoordenadasGPS;
 
+/**
+ * 
+ * @author marrobl Maria Robles del Blanco
+ *
+ */
 public class RedMetroTDDTest {
 	private RedMetro redMetro;
 	private Linea lineaPrimera, lineaSegunda, lineaTercera, lineaCuarta;

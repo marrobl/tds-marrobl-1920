@@ -1,5 +1,9 @@
 package es.uva.inf.tds.redmetro;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.json.JSONObject;
 
 import es.uva.inf.maps.CoordenadasGPS;
@@ -10,7 +14,8 @@ import es.uva.inf.maps.CoordenadasGPS;
  *
  */
 public class RedMetro {
-
+	private ArrayList<Linea> lineasActivas;
+	private ArrayList<Linea> lineasInactivas;
 	/**
 	 * Inicializador de una red de metro, formada por varias lineas. 
 	 * Una red de metro tiene que tener al menos dos lineas. 
@@ -28,7 +33,16 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public RedMetro(Linea... lineas) {
-		// TODO Auto-generated constructor stub
+		if(lineas == null) throw new IllegalArgumentException();
+		if(lineas.length<2) throw new IllegalArgumentException();
+		for(int i = 0; i<lineas.length; i++) {
+			for(int j = 1; i<lineas.length; i++) {
+				if(i!=j && lineas[i].getColor().equals(lineas[j].getColor())) throw new IllegalArgumentException();
+				if(i!=j && lineas[i].getNumero() == lineas[j].getNumero()) throw new IllegalArgumentException();
+			}
+		}
+		
+		lineasActivas = (ArrayList<Linea>) Arrays.asList(lineas);	
 	}
 
 	/**
@@ -57,8 +71,11 @@ public class RedMetro {
 	 * @return lineas que forman la red
 	 */
 	public Linea[] getLineas() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Linea> lineas = new ArrayList<>();
+		lineas.addAll(lineasActivas);
+		lineas.addAll(lineasInactivas);
+		Linea[] linea = (Linea[]) lineas.toArray();
+		return linea;
 	}
 
 	/**
@@ -78,8 +95,19 @@ public class RedMetro {
 	 * 
 	 */
 	public void addLinea(Linea linea) {
-		// TODO Auto-generated method stub
+		if(linea == null) throw new IllegalArgumentException();
+		for(int i = 0; i<lineasActivas.size(); i++) {
+			if(lineasActivas.get(i).getColor().equals(linea.getColor())) throw new IllegalArgumentException();
+			if(lineasActivas.get(i).getNumero() == linea.getNumero()) throw new IllegalArgumentException();
+		}
+		for(int i = 0; i<lineasInactivas.size(); i++) {
+			if(lineasInactivas.get(i).getColor().equals(linea.getColor())) throw new IllegalArgumentException();
+			if(lineasInactivas.get(i).getNumero() == linea.getNumero()) throw new IllegalArgumentException();
+		}
+		int ultimoNumero = lineasActivas.get(lineasActivas.size()-1).getNumero();
+		if(linea.getNumero()+1 != ultimoNumero) throw new IllegalArgumentException();
 		
+		lineasActivas.add(linea);
 	}
 	
 	/**
@@ -90,8 +118,14 @@ public class RedMetro {
 	 * @return linea contenida en la red
 	 */
 	public Linea getLinea(int numero) {
-		// TODO Auto-generated method stub
-		return null;
+		Linea linea = null;
+		for(int i = 0; i<lineasActivas.size(); i++) {
+			if(lineasActivas.get(i).getNumero() == numero) linea = lineasActivas.get(i);
+		}
+		for(int i = 0; i<lineasInactivas.size(); i++) {
+			if(lineasInactivas.get(i).getNumero() == numero) linea = lineasInactivas.get(i);
+		}
+		return linea;
 	}
 
 	/**
@@ -104,8 +138,16 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea getLinea(String color) {
-		// TODO Auto-generated method stub
-		return null;
+		if(color == null) throw new IllegalArgumentException();
+		
+		Linea linea = null;
+		for(int i = 0; i<lineasActivas.size(); i++) {
+			if(lineasActivas.get(i).getColor().equals(color)) linea = lineasActivas.get(i);
+		}
+		for(int i = 0; i<lineasInactivas.size(); i++) {
+			if(lineasInactivas.get(i).getColor().equals(color)) linea = lineasInactivas.get(i);
+		}
+		return linea;
 	}
 
 	/**
@@ -113,8 +155,8 @@ public class RedMetro {
 	 * @return lista de lineas en servicio de la red
 	 */
 	public Linea[] getLineaEnServicio() {
-		// TODO Auto-generated method stub
-		return null;
+		Linea[] lineaServicio = (Linea[]) lineasActivas.toArray();
+		return lineaServicio;
 	}
 
 	/**
@@ -133,8 +175,15 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public void retirarLinea(Linea linea) {
-		// TODO Auto-generated method stub
-		
+		if(linea == null) throw new IllegalArgumentException();
+		if(!lineasActivas.contains(linea) && !lineasInactivas.contains(linea)) throw new IllegalArgumentException();
+		if(lineasActivas.size()<=2) throw new IllegalArgumentException();
+		for(int i = 0; i< lineasActivas.size(); i++) {
+			if(lineasActivas.get(i).getNumero() == linea.getNumero()) {
+				lineasActivas.remove(i);
+				lineasInactivas.add(linea);
+			}
+		}
 	}
 
 	/**

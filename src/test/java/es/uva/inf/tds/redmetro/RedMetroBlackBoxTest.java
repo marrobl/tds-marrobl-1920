@@ -238,4 +238,12 @@ public class RedMetroBlackBoxTest {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.eliminarLinea(lineaCuarta);});
 		
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroReactivarLineaQueNoEstaEnLaRed() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.reactivarLinea(lineaCuarta);});
+		
+	}
+	
 }

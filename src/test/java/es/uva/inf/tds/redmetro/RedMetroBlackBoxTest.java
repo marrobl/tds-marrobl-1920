@@ -300,4 +300,20 @@ public class RedMetroBlackBoxTest {
 		fail("not yet implemented");
 		assertNull(redMetro.getConexionTrasbordo(estacionInicial1, estacionFinal));
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetEstacionCercanaDistanciaMenorQue0() {
+		CoordenadasGPS coordenadas = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getEstacionCercana(coordenadas, -1);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetEstacionCercanaNoHay() {
+		CoordenadasGPS coordenadas = new CoordenadasGPS("000°38'06\"N","000°05'59\"E");
+		//TODO cambiar cuando se implemente
+		fail("not yet implemented");
+		assertNull(redMetro.getEstacionCercana(coordenadas, 40));
+	}
 }

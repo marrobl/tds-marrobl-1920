@@ -185,4 +185,18 @@ public class RedMetroBlackBoxTest {
  		
  		assertThrows(IllegalArgumentException.class, () -> { redMetro.addLinea(linea);});
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroRetirarLineaNull() {
+ 		assertThrows(IllegalArgumentException.class, () -> { redMetro.retirarLinea(null);;});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroRetirarLineaQuedarDosActivadas() {
+		redMetro.retirarLinea(lineaTercera);
+		
+ 		assertThrows(IllegalArgumentException.class, () -> { redMetro.retirarLinea(lineaSegunda);;});
+	}
 }

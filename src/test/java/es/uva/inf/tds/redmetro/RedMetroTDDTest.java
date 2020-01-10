@@ -265,5 +265,9 @@ public class RedMetroTDDTest {
  		assertArrayEquals(estacionInicial.getCoordenadasGPS(), redMetro.getEstacionCercana(coord1,400).getCoordenadasGPS());
 	}
 	
-	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetEstacionCercanaExcepcion() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getEstacionCercana(null, 0);});
+	}
 }

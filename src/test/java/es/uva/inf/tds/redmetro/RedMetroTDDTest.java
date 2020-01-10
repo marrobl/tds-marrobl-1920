@@ -107,7 +107,8 @@ public class RedMetroTDDTest {
 	@Test
 	@Tag("TDD")
 	public void testRedMetroExcepcion() {
-		assertThrows(IllegalArgumentException.class, () -> { RedMetro redDeMetro = new RedMetro(null);});
+		Linea[] lineaNull = null;
+		assertThrows(IllegalArgumentException.class, () -> { RedMetro redDeMetro = new RedMetro(lineaNull);});
 	}
 	
 	@Test
@@ -304,5 +305,13 @@ public class RedMetroTDDTest {
 		Linea[] linea = {lineaPrimera, lineaSegunda};
 		RedMetro red = new RedMetro(linea);
 		JSONAssert.assertEquals("[lineaPrimera, lineaSegunda]", redMetro.getInfoRed(),JSONCompareMode.STRICT);
+	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroCrearAPartirJson() {
+		RedMetro red = new RedMetro("[lineaPrimera, lineaSegunda, lineaTercera]");
+		fail("not yet implemented");
+		assertArrayEquals(redMetro.getLineas(),red.getLineas());
 	}
 }

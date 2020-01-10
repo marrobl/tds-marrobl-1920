@@ -26,6 +26,10 @@ public class RedMetro {
 		// TODO Auto-generated constructor stub
 	}
 
+	public RedMetro(String json) {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Consulta las lineas que pertenecen a la red de metro, ya esten en servicio o fuera de servicio
 	 * @return lineas que forman la red

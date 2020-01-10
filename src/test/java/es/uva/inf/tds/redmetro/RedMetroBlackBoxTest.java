@@ -158,4 +158,31 @@ public class RedMetroBlackBoxTest {
 		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
 		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroAnadirLineaMismoColor() {
+ 		Estacion[] estaciones = {estacionInicial1, estacionFinal1};
+ 		Linea linea = new Linea(4,"rojo",estaciones);
+ 		
+ 		assertThrows(IllegalArgumentException.class, () -> { redMetro.addLinea(linea);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroAnadirLineaMismoNumero() {
+ 		Estacion[] estaciones = {estacionInicial1, estacionFinal1};
+ 		Linea linea = new Linea(3,"morado",estaciones);
+ 		
+ 		assertThrows(IllegalArgumentException.class, () -> { redMetro.addLinea(linea);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroAnadirLineaNumeroNoConsecutivo() {
+ 		Estacion[] estaciones = {estacionInicial1, estacionFinal1};
+ 		Linea linea = new Linea(6,"morado",estaciones);
+ 		
+ 		assertThrows(IllegalArgumentException.class, () -> { redMetro.addLinea(linea);});
+	}
 }

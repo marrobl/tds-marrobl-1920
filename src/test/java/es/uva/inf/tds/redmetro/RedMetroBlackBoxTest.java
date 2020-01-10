@@ -199,4 +199,32 @@ public class RedMetroBlackBoxTest {
 		
  		assertThrows(IllegalArgumentException.class, () -> { redMetro.retirarLinea(lineaSegunda);;});
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetCorrespondenciaNull2() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getCorrespondencia(lineaPrimera, null);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetCorrespondenciaLineaSinServicio1() {
+		redMetro.retirarLinea(lineaSegunda);
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getCorrespondencia(lineaSegunda, lineaPrimera);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetCorrespondenciaLineaSinServicio2() {
+		redMetro.retirarLinea(lineaPrimera);
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getCorrespondencia(lineaSegunda,lineaPrimera);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetCorrespondenciaSinEstacionesEnComun() {
+		Estacion[] esperado = {};
+		assertArrayEquals(esperado, redMetro.getCorrespondencia(lineaPrimera, lineaSegunda));
+	}
+	
 }

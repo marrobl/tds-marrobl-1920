@@ -314,4 +314,11 @@ public class RedMetroTDDTest {
 		fail("not yet implemented");
 		assertArrayEquals(redMetro.getLineas(),red.getLineas());
 	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroCrearAPartirJsonExcepcion() {
+		String jsonNull = null;
+		assertThrows(IllegalArgumentException.class, () -> {RedMetro red = new RedMetro(jsonNull);});
+	}
 }

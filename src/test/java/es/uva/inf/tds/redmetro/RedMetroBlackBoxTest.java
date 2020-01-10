@@ -272,4 +272,18 @@ public class RedMetroBlackBoxTest {
 		Linea[] lineaVacia = redMetro.getLineas("nombre estacion ninguna");
 		assertNull(lineaVacia);
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetConexionSinTrasbordoExcepcion2() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getConexionSinTrasbordo(estacionFinal,null);});
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetConexionSinTrasbordoNoHay() {
+		//TODO cambiar cuando se implemente
+		fail("not yet implemented");
+		assertNull(redMetro.getConexionSinTrasbordo(estacionInicial1, estacionInicial2));
+	}
 }

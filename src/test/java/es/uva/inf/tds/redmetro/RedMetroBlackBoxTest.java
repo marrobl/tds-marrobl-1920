@@ -316,4 +316,10 @@ public class RedMetroBlackBoxTest {
 		fail("not yet implemented");
 		assertNull(redMetro.getEstacionCercana(coordenadas, 40));
 	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroGetInfoLineasPorNombreEstacionNohay() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas("nombre de estacion que no existe");});
+	}
 }

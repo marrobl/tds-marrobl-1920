@@ -32,7 +32,7 @@ public class RedMetro {
 	 * Una red de metro tiene que tener al menos dos lineas. 
 	 * Una linea esta univocamente identificada en la red por un numero consecutivo
 	 * y un color que no puede coincidir con colores de otras lineas de esa red
-	 * Las lineas estan en servicio
+	 * Las lineas se inicializan en servicio
 	 * 
 	 * @pre.condition {@code json != null}
 	 * @pre.condition lineas tienen que ser al menos dos

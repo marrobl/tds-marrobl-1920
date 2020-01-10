@@ -213,9 +213,12 @@ public class RedMetro {
 	 * Devuelve una estacion cercana a una coordenada GPS dada
 	 * y en un radio menor o igual que la distancia indicada
 	 * Solo devuelve estacion que se encuentren en lineas con servicio
+	 * 
+	 * @pre.condition {@code coordenada != null}
+	 * @pre.condition {@code distanciaMax >= 0}
 	 *  
 	 * @param coordenada coordenadaGPS
-	 * @param distanciaMax distancia maxima para establecer la cercania
+	 * @param distanciaMax distancia maxima medida en metros para establecer la cercania
 	 * @return estacion cercana si se ha encontrado alguna, nada en cualquier otro caso
 	 */
 	public Estacion getEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {

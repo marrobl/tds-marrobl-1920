@@ -30,7 +30,7 @@
 		<profile>
 			<id>Unit</id>
 			<properties>
-				<groups>TDD|RedMetro|BlackBox</groups>
+				<groups>TDD|BlackBox</groups>
 			</properties>
 		</profile>
 		<profile>

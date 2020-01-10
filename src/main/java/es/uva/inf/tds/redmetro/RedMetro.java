@@ -70,6 +70,7 @@ public class RedMetro {
 	 * @pre.condition {@code linea != null}
 	 * @pre.condition el color de la linea no tiene que coincidir con alguno de las lineas existentes
 	 * @pre.condition el numero de la linea tiene que ser consecutivo en la red
+	 * @pre.condition el numero de la linea no puede coincidir con ninguno de los existentes
 	 * 
 	 * @param linea linea que se quiere añadir
 	 * 
@@ -121,7 +122,9 @@ public class RedMetro {
 	 * La linea tiene que estar en la red
 	 * Para que se pueda retirar una linea de la red, al menos tienen
 	 * que quedar dos lineas en servicio
+	 * Si la linea ya se encuentra fuera de servicio, el metodo queda sin efecto
 	 * 
+	 * @pre.condition {@code linea != null}
 	 * @pre.condition la linea tiene que formar parte de la red
 	 * @pre.condition {@code getLineaEnServicio().size()>2}
 	 * @param linea linea que se retira de servicio en la red de metro
@@ -136,7 +139,7 @@ public class RedMetro {
 
 	/**
 	 * Devuelve una lista de lineas de la red que pasan por la estacion indicada
-	 * por su nombre metido por parametro.
+	 * por su nombre introducido por parametro.
 	 * Solo se devuelven las lineas que esten en servicio.
 	 * Si no se encuentra ninguna linea que pase por la estacion indicada, 
 	 * se devuelve una lista vacia.
@@ -148,8 +151,9 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea[] getLineas(String nombreEstacion) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Cambiar fake implementation
+		Linea[] lineas = {};
+		return lineas;
 	}
 
 	/**
@@ -189,10 +193,10 @@ public class RedMetro {
 	/**
 	 * Reactiva el servicio de una linea de la red de metro
 	 * que previamente tiene que estar en la red pero sin servicio.
+	 * Si se reactiva una que ya esta activa, queda sin efecto
 	 * 
 	 * @pre.condition {@code linea != null}
 	 * @pre.condition {@code getLineas().contains(linea)}
-	 * @pre.condition {@code !getLineaEnServicio().contains(linea)}
 	 * @param linea linea que se quiere reactivar su servicio
 	 * 
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones 

@@ -192,6 +192,18 @@ public class RedMetroBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	public void testRedMetroNoEnServicio() {
+		redMetro.retirarLinea(lineaPrimera);
+		assertFalse(redMetro.enServicio(lineaPrimera));
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroEnServicioNoPertenece() {
+		assertThrows(IllegalArgumentException.class, () -> { redMetro.enServicio(lineaCuarta);});
+	}
+	@Test
+	@Tag("BlackBox")
 	public void testRedMetroRetirarLineaNull() {
  		assertThrows(IllegalArgumentException.class, () -> { redMetro.retirarLinea(null);;});
 	}

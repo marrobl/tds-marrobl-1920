@@ -362,9 +362,13 @@ public class RedMetro {
 	 * @param distanciaMax distancia maxima medida en metros para establecer la cercania
 	 * @return estacion cercana si se ha encontrado alguna, nada en cualquier otro caso
 	 */
-	public Estacion getEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {
-		//TODO
-		return null;
+	public boolean hayEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {
+		Linea[] lineasActivas = this.getLineasEnServicio();
+		Estacion estacion = null;
+		for(int i = 0; i<lineasActivas.length; i++) {
+			
+		}
+		return false;
 	}
 
 	/**

@@ -2,11 +2,8 @@ package es.uva.inf.tds.redmetro;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import org.json.JSONException;
 import org.junit.jupiter.api.AfterEach;
@@ -282,20 +279,17 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void testRedMetroGetEstacionCercana() {
+	public void testRedMetroHayEstacionCercana() {
 		CoordenadasGPS coord1 = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
-		CoordenadasGPS coord2 = new CoordenadasGPS("045°38'06\"N","132°05'59\"E");
-		CoordenadasGPS[] coordenadasInicial = {coord1, coord2};
- 		Estacion estacionInicial = new Estacion("Primera Estacion", coordenadasInicial);
  		// TODO cambiar cuando se implemente
  		fail("not yet implemented");
- 		assertArrayEquals(estacionInicial.getCoordenadasGPS(), redMetro.getEstacionCercana(coord1,400).getCoordenadasGPS());
+ 		assertTrue(redMetro.hayEstacionCercana(coord1,400));
 	}
 	
 	@Test
 	@Tag("TDD")
 	public void testRedMetroGetEstacionCercanaExcepcion() {
-		assertThrows(IllegalArgumentException.class, () -> {redMetro.getEstacionCercana(null, 0);});
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.hayEstacionCercana(null, 0);});
 	}
 	
 	@Test

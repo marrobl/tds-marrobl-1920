@@ -2,7 +2,6 @@ package es.uva.inf.tds.redmetro;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.json.JSONObject;
 
@@ -173,7 +172,10 @@ public class RedMetro {
 	 */
 	public void retirarLinea(Linea linea) {
 		if(linea == null) throw new IllegalArgumentException();
-
+		if(this.getLineasEnServicio().length<=2) throw new IllegalArgumentException();
+		if(!lineas.contains(linea)) throw new IllegalArgumentException();
+		
+		lineasInactivas.add(linea);
 	}
 
 	/**
@@ -190,9 +192,23 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea[] getLineas(String nombreEstacion) {
-		// TODO Cambiar fake implementation
-		Linea[] lineas = {};
-		return lineas;
+		if(nombreEstacion == null) throw new IllegalArgumentException();
+		
+		ArrayList<Linea> lineasEstacion = new ArrayList<>();
+		Linea[] lineasEnServicio = this.getLineasEnServicio();
+		for( int i = 0; i< lineasEnServicio.length; i++) {
+			Estacion[] estacionesDirectas = lineasEnServicio[i].getEstaciones(true);
+			for(int j = 0; j<estacionesDirectas.length; i++) {
+				if(estacionesDirectas[i].getNombre().equals(nombreEstacion)) lineasEstacion.add(lineasEnServicio[i]); 
+			}
+			
+			Estacion[] estacionesInversas = lineasEnServicio[i].getEstaciones(false);
+			for(int j = 0; j<estacionesDirectas.length; i++) {
+				if(estacionesInversas[i].getNombre().equals(nombreEstacion)) lineasEstacion.add(lineasEnServicio[i]); 
+			}
+		}
+		Linea[] lineasConEstacion = (Linea[]) lineasEstacion.toArray();
+		return lineasConEstacion;
 	}
 
 	/**
@@ -331,8 +347,12 @@ public class RedMetro {
 	 * @return todas las lineas activas
 	 */
 	public Linea[] getLineasEnServicio() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Linea> lineasServicio = new ArrayList<>();
+		for(int i = 0; i < lineas.size(); i++) {
+			if(!lineasInactivas.contains(lineas.get(i)) && !lineasEliminadas.contains(lineas.get(i))) lineasServicio.add(lineas.get(i));
+		}
+		Linea[] lineasEnServicio = (Linea[]) lineasServicio.toArray();
+		return lineasEnServicio;
 	}
 
 

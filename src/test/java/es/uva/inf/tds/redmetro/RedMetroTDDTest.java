@@ -1,5 +1,7 @@
 package es.uva.inf.tds.redmetro;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -157,17 +159,20 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void testRedMetroGetLineaEnServicio() {
-		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
-		assertArrayEquals(esperado,redMetro.getLineaEnServicio());
+	public void testRedMetroComprobarLineaEnServicio() {
+		assertTrue(redMetro.enServicio(lineaPrimera));
 	}
 	
 	@Test
 	@Tag("TDD")
+	public void testRedMetroLineaEnServicioExcepcion() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.enServicio(null);});
+	}
+	@Test
+	@Tag("TDD")
 	public void testRedMetroRetirarLinea() {
-		Linea[] esperado = {lineaPrimera, lineaSegunda};
 		redMetro.retirarLinea(lineaTercera);
-		assertArrayEquals(esperado, redMetro.getLineaEnServicio());
+		assertFalse(redMetro.enServicio(lineaTercera));
 	}
 	
 	@Test
@@ -225,8 +230,7 @@ public class RedMetroTDDTest {
 	public void testRedMetroReactivarLinea() {
 		redMetro.retirarLinea(lineaTercera);
 		redMetro.reactivarLinea(lineaTercera);
-		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
-		assertArrayEquals(esperado, redMetro.getLineaEnServicio());
+		assertTrue(redMetro.enServicio(lineaTercera));
 	}
 	
 	@Test

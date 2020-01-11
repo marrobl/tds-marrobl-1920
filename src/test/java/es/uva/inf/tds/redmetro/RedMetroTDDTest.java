@@ -197,6 +197,12 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
+	public void testRedMetroGetLineasEnServicio() {
+		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
+		assertArrayEquals(esperado, redMetro.getLineasEnServicio());
+	}
+	@Test
+	@Tag("TDD")
 	public void testRedMetroConsultarCorrespondencia() {
 		CoordenadasGPS coord_e = new CoordenadasGPS("0100°38'06\"N","136°05'59\"E");
 		CoordenadasGPS coord_s = new CoordenadasGPS("098°38'06\"N","135°05'59\"E");

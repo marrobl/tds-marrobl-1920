@@ -14,8 +14,9 @@ import es.uva.inf.maps.CoordenadasGPS;
  *
  */
 public class RedMetro {
-	private ArrayList<Linea> lineasActivas;
+	private ArrayList<Linea> lineas;
 	private ArrayList<Linea> lineasInactivas;
+	private ArrayList<Linea> lineasEliminadas;
 	/**
 	 * Inicializador de una red de metro, formada por varias lineas. 
 	 * Una red de metro tiene que tener al menos dos lineas. 
@@ -41,8 +42,8 @@ public class RedMetro {
 				if(i!=j && lineas[i].getNumero() == lineas[j].getNumero()) throw new IllegalArgumentException();
 			}
 		}
-		
-		lineasActivas = (ArrayList<Linea>) Arrays.asList(lineas);	
+		 
+		this.lineas = (ArrayList<Linea>) Arrays.asList(lineas);	
 	}
 
 	/**
@@ -71,9 +72,6 @@ public class RedMetro {
 	 * @return lineas que forman la red
 	 */
 	public Linea[] getLineas() {
-		ArrayList<Linea> lineas = new ArrayList<>();
-		lineas.addAll(lineasActivas);
-		lineas.addAll(lineasInactivas);
 		Linea[] linea = (Linea[]) lineas.toArray();
 		return linea;
 	}
@@ -96,18 +94,14 @@ public class RedMetro {
 	 */
 	public void addLinea(Linea linea) {
 		if(linea == null) throw new IllegalArgumentException();
-		for(int i = 0; i<lineasActivas.size(); i++) {
-			if(lineasActivas.get(i).getColor().equals(linea.getColor())) throw new IllegalArgumentException();
-			if(lineasActivas.get(i).getNumero() == linea.getNumero()) throw new IllegalArgumentException();
+		for(int i = 0; i<lineas.size(); i++) {
+			if(lineas.get(i).getColor().equals(linea.getColor())) throw new IllegalArgumentException();
+			if(lineas.get(i).getNumero() == linea.getNumero()) throw new IllegalArgumentException();
 		}
-		for(int i = 0; i<lineasInactivas.size(); i++) {
-			if(lineasInactivas.get(i).getColor().equals(linea.getColor())) throw new IllegalArgumentException();
-			if(lineasInactivas.get(i).getNumero() == linea.getNumero()) throw new IllegalArgumentException();
-		}
-		int ultimoNumero = lineasActivas.get(lineasActivas.size()-1).getNumero();
+		int ultimoNumero = lineas.get(lineas.size()-1).getNumero();
 		if(linea.getNumero()+1 != ultimoNumero) throw new IllegalArgumentException();
 		
-		lineasActivas.add(linea);
+		lineas.add(linea);
 	}
 	
 	/**
@@ -119,11 +113,8 @@ public class RedMetro {
 	 */
 	public Linea getLinea(int numero) {
 		Linea linea = null;
-		for(int i = 0; i<lineasActivas.size(); i++) {
-			if(lineasActivas.get(i).getNumero() == numero) linea = lineasActivas.get(i);
-		}
-		for(int i = 0; i<lineasInactivas.size(); i++) {
-			if(lineasInactivas.get(i).getNumero() == numero) linea = lineasInactivas.get(i);
+		for(int i = 0; i<lineas.size(); i++) {
+			if(lineas.get(i).getNumero() == numero) linea = lineas.get(i);
 		}
 		return linea;
 	}
@@ -141,22 +132,28 @@ public class RedMetro {
 		if(color == null) throw new IllegalArgumentException();
 		
 		Linea linea = null;
-		for(int i = 0; i<lineasActivas.size(); i++) {
-			if(lineasActivas.get(i).getColor().equals(color)) linea = lineasActivas.get(i);
-		}
-		for(int i = 0; i<lineasInactivas.size(); i++) {
-			if(lineasInactivas.get(i).getColor().equals(color)) linea = lineasInactivas.get(i);
+		for(int i = 0; i<lineas.size(); i++) {
+			if(lineas.get(i).getColor().equals(color)) linea = lineas.get(i);
 		}
 		return linea;
 	}
 
 	/**
-	 * Devuelve todas las lineas de la red de metro que estan en servicio
-	 * @return lista de lineas en servicio de la red
+	 * Devuelve si una linea perteneciente a la red de metro esta en servicio o no
+	 * 
+	 * @pre.condition {@code linea != null}
+	 * @pre.condition linea tiene que pertenecer a la red
+	 * @return true, si la linea se encuentra en servicio, false en cualquier otro caso
+	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
-	public Linea[] getLineaEnServicio() {
-		Linea[] lineaServicio = (Linea[]) lineasActivas.toArray();
-		return lineaServicio;
+	public boolean enServicio(Linea linea) {
+		if(linea == null) throw new IllegalArgumentException();
+		if(!lineas.contains(linea)) throw  new IllegalArgumentException();
+	
+		boolean enServicio = true;
+		if(lineasInactivas.contains(linea)) enServicio = false;
+		if(lineasEliminadas.contains(linea)) enServicio = false;
+		return enServicio;
 	}
 
 	/**
@@ -176,14 +173,7 @@ public class RedMetro {
 	 */
 	public void retirarLinea(Linea linea) {
 		if(linea == null) throw new IllegalArgumentException();
-		if(!lineasActivas.contains(linea) && !lineasInactivas.contains(linea)) throw new IllegalArgumentException();
-		if(lineasActivas.size()<=2) throw new IllegalArgumentException();
-		for(int i = 0; i< lineasActivas.size(); i++) {
-			if(lineasActivas.get(i).getNumero() == linea.getNumero()) {
-				lineasActivas.remove(i);
-				lineasInactivas.add(linea);
-			}
-		}
+
 	}
 
 	/**
@@ -332,6 +322,11 @@ public class RedMetro {
 	 */
 
 	public JSONObject getInfoRed() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Linea[] getLineasEnServicio() {
 		// TODO Auto-generated method stub
 		return null;
 	}

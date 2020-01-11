@@ -1,12 +1,11 @@
 package es.uva.inf.tds.redmetro;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.json.JSONObject;
-
-
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import es.uva.inf.maps.CoordenadasGPS;
 /**
@@ -61,12 +60,23 @@ public class RedMetro {
 	 * @pre.condition las lineas tienen numeros consecutivos
 	 * @pre.condition las lineas tienen diferentes colores
 	 * 
-	 * @param json formato json que contiene toda la informacion sobre la red
+	 * @param jsonArray formato json que contiene toda la informacion sobre la red
 	 * 
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
-	public RedMetro(String json) {
-		// TODO Auto-generated constructor stub
+	public RedMetro(String jsonArray) {
+		if(jsonArray == null) throw new IllegalArgumentException();
+		Gson gson = new Gson();
+		Type listType = new TypeToken<ArrayList<Linea>>(){}.getType();
+		this.lineas = gson.fromJson(jsonArray, listType);
+		
+		if(lineas.size()<2) throw new IllegalArgumentException();
+		for(int i = 0; i<lineas.size(); i++) {
+			for(int j = 1; i<lineas.size(); j++) {
+				if(i!=j && lineas.get(i).getColor().equals(lineas.get(j).getColor())) throw new IllegalArgumentException();
+				if(i!=j && lineas.get(i).getNumero() == lineas.get(j).getNumero()) throw new IllegalArgumentException();
+			}
+		}
 	}
 
 	/**
@@ -314,13 +324,34 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea[] getConexionTrasbordo(Estacion estacionPartida, Estacion estacionDestino) {
-		// TODO Auto-generated method stub
+		if(estacionPartida == null || estacionDestino == null) throw new IllegalArgumentException();
+		
+		Linea[] lineasActivas = this.getLineasEnServicio();
+		ArrayList<Linea> lineasTrasb = new ArrayList<>();
+		Linea lineaPartida = null, lineaDestino = null;
+		for(int i = 0;i < lineasActivas.length; i++) {
+			Estacion[] estacionesPartida = lineasActivas[i].getEstaciones(true);
+			for(int j = 0; j< estacionesPartida.length; j++) {
+				if(estacionesPartida[j].getNombre().equals(estacionPartida.getNombre())) lineaPartida = lineasActivas[i];
+			}
+			
+			Estacion[] estacionesLlegada = lineasActivas[i].getEstaciones(false);
+			for(int j = 0; j< estacionesLlegada.length; j++) {
+				if(estacionesLlegada[j].getNombre().equals(estacionDestino.getNombre())) lineaDestino = lineasActivas[i];
+			}
+		}
+		
+		if(lineaPartida != null && lineaDestino != null && lineaPartida.hayCorrespondencia(lineaDestino)) {
+			lineasTrasb.add(lineaPartida);
+	
+		}
+	//TODO
 		return null;
 	}
 
 	/**
 	 * Devuelve una estacion cercana a una coordenada GPS dada
-	 * y en un radio menor o igual que la distancia indicada
+	 * en un radio menor o igual que la distancia indicada
 	 * Solo devuelve estacion que se encuentren en lineas con servicio
 	 * 
 	 * @pre.condition {@code coordenada != null}
@@ -344,9 +375,13 @@ public class RedMetro {
 	 * @param nombreEstacion nombre de la estacion 
 	 * @return JSONObject lista de lineas que contienen a la estacion, vacio en cualquier otro caso
 	 */
-	public JSONObject getInfoLineas(String nombreEstacion) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getInfoLineas(String nombreEstacion) {
+		if(nombreEstacion == null) throw new IllegalArgumentException();
+		
+		Linea[] lineasInfo = this.getLineas(nombreEstacion);
+		Gson gson = new Gson();
+		String jsonLineas = gson.toJson(lineasInfo);
+		return jsonLineas;
 	}
 	/**
 	 * Devuelve la informacion de la red de metro en formato JsonObject

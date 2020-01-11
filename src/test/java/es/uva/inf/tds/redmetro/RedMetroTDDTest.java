@@ -168,6 +168,7 @@ public class RedMetroTDDTest {
 	public void testRedMetroLineaEnServicioExcepcion() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.enServicio(null);});
 	}
+	
 	@Test
 	@Tag("TDD")
 	public void testRedMetroRetirarLinea() {

@@ -38,13 +38,13 @@ public class RedMetro {
 		if(lineas == null) throw new IllegalArgumentException();
 		if(lineas.length<2) throw new IllegalArgumentException();
 		for(int i = 0; i<lineas.length; i++) {
-			for(int j = 1; i<lineas.length; j++) {
+			for(int j = 0; j<lineas.length; j++) {
 				if(i!=j && lineas[i].getColor().equals(lineas[j].getColor())) throw new IllegalArgumentException();
 				if(i!=j && lineas[i].getNumero() == lineas[j].getNumero()) throw new IllegalArgumentException();
 			}
 		}
 		 
-		this.lineas = (ArrayList<Linea>) Arrays.asList(lineas);	
+		this.lineas =  new ArrayList<Linea>(Arrays.asList(lineas));
 	}
 
 	/**
@@ -68,8 +68,7 @@ public class RedMetro {
 		if(jsonArray == null) throw new IllegalArgumentException();
 		Gson gson = new Gson();
 		Type listType = new TypeToken<ArrayList<Linea>>(){}.getType();
-		this.lineas = gson.fromJson(jsonArray, listType);
-		
+		this.lineas = new ArrayList<Linea>(Arrays.asList(gson.fromJson(jsonArray, listType)));
 		if(lineas.size()<2) throw new IllegalArgumentException();
 		for(int i = 0; i<lineas.size(); i++) {
 			for(int j = 1; i<lineas.size(); j++) {
@@ -84,7 +83,7 @@ public class RedMetro {
 	 * @return lineas que forman la red
 	 */
 	public Linea[] getLineas() {
-		Linea[] linea = (Linea[]) lineas.toArray();
+		Linea[] linea = lineas.toArray(new Linea[lineas.size()]);
 		return linea;
 	}
 

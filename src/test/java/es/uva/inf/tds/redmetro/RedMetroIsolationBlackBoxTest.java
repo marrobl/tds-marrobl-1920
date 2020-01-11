@@ -78,6 +78,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroUnaLinea() {
 		Linea[] linea = {lineaPrimera};
 		assertThrows(IllegalArgumentException.class, () -> { @SuppressWarnings("unused")
@@ -86,6 +87,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroDosLineas() {
 		Linea[] linea = {lineaPrimera, lineaSegunda};
 		RedMetro red = new RedMetro(linea);
@@ -95,6 +97,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroLineasIgualColor() {
 		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
 		lineaPrimera = new Linea(1,"rojo",estaciones1);
@@ -107,6 +110,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroLineasIgualNum() {
 		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
 		lineaPrimera = new Linea(1,"rojo",estaciones1);
@@ -120,6 +124,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroJsonUnaLinea() {
 		String json = "{lineaPrimera}";
 		assertThrows(IllegalArgumentException.class, () -> { 
@@ -129,6 +134,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroJsonDosLineas() {
 		String json = "[lineaPrimera, lineaSegunda]";
 		RedMetro red = new RedMetro(json);
@@ -139,6 +145,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroLineasIgualColorJSon() {
 		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
 		lineaPrimera = new Linea(1,"rojo",estaciones1);
@@ -152,6 +159,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroLineasIgualNunJson() {
 		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
 		lineaPrimera = new Linea(1,"rojo",estaciones1);
@@ -165,6 +173,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroAnadirLineaMismoColor() {
  		Estacion[] estaciones = {estacionInicial1, estacionFinal1};
  		Linea linea = new Linea(4,"rojo",estaciones);
@@ -174,6 +183,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroAnadirLineaMismoNumero() {
  		Estacion[] estaciones = {estacionInicial1, estacionFinal1};
  		Linea linea = new Linea(3,"morado",estaciones);
@@ -183,6 +193,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroAnadirLineaNumeroNoConsecutivo() {
  		Estacion[] estaciones = {estacionInicial1, estacionFinal1};
  		Linea linea = new Linea(6,"morado",estaciones);
@@ -192,6 +203,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroNoEnServicio() {
 		redMetro.retirarLinea(lineaPrimera);
 		assertFalse(redMetro.enServicio(lineaPrimera));
@@ -199,17 +211,20 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroEnServicioNoPertenece() {
 		assertThrows(IllegalArgumentException.class, () -> { redMetro.enServicio(lineaCuarta);});
 	}
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroRetirarLineaNull() {
  		assertThrows(IllegalArgumentException.class, () -> { redMetro.retirarLinea(null);;});
 	}
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroRetirarLineaQuedarDosActivadas() {
 		redMetro.retirarLinea(lineaTercera);
 		
@@ -219,12 +234,14 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetCorrespondenciaNull2() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getCorrespondencia(lineaPrimera, null);});
 	}
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetCorrespondenciaLineaSinServicio1() {
 		redMetro.retirarLinea(lineaSegunda);
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getCorrespondencia(lineaSegunda, lineaPrimera);});
@@ -232,6 +249,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetCorrespondenciaLineaSinServicio2() {
 		redMetro.retirarLinea(lineaPrimera);
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getCorrespondencia(lineaSegunda,lineaPrimera);});
@@ -239,6 +257,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetCorrespondenciaSinEstacionesEnComun() {
 		Estacion[] esperado = {};
 		assertArrayEquals(esperado, redMetro.getCorrespondencia(lineaPrimera, lineaSegunda));
@@ -247,6 +266,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroEliminarLineaQueNoEstaEnLaRed() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.eliminarLinea(lineaCuarta);});
 		
@@ -254,6 +274,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroReactivarLineaQueNoEstaEnLaRed() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.reactivarLinea(lineaCuarta);});
 		
@@ -261,6 +282,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetLineaColorDevuelveNull() {
 		Linea lineaVacia = redMetro.getLinea("morado");
 		//TODO cambiar
@@ -271,6 +293,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetLineaNumeroDevuelveNull() {
 		Linea lineaVacia = redMetro.getLinea(6);
 		//TODO cambiar
@@ -280,6 +303,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetLineasEstacionDevuelveNull() {
 		Linea[] lineaVacia = redMetro.getLineas("nombre estacion ninguna");
 		assertNull(lineaVacia);
@@ -287,12 +311,14 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetConexionSinTrasbordoExcepcion2() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getConexionSinTrasbordo(estacionFinal,null);});
 	}
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetConexionSinTrasbordoNoHay() {
 		//TODO cambiar cuando se implemente
 		fail("not yet implemented");
@@ -301,12 +327,14 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetConexionTrasbordoExcepcion2() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getConexionTrasbordo(null,estacionFinal);});
 	}
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetConexionTrasbordoNoHay() {
 		//TODO cambiar cuando se implemente
 		fail("not yet implemented");
@@ -315,6 +343,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetEstacionCercanaDistanciaMenorQue0() {
 		CoordenadasGPS coordenadas = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.hayEstacionCercana(coordenadas, -1);});
@@ -322,6 +351,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetEstacionCercanaNoHay() {
 		CoordenadasGPS coordenadas = new CoordenadasGPS("000°38'06\"N","000°05'59\"E");
 		//TODO cambiar cuando se implemente
@@ -331,6 +361,7 @@ public class RedMetroIsolationBlackBoxTest {
 	
 	@Test
 	@Tag("BlackBox")
+	@Tag("Isolation")
 	public void testRedMetroGetInfoLineasPorNombreEstacionNohay() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas("nombre de estacion que no existe");});
 	}

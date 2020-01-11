@@ -36,7 +36,7 @@ public class RedMetro {
 		if(lineas == null) throw new IllegalArgumentException();
 		if(lineas.length<2) throw new IllegalArgumentException();
 		for(int i = 0; i<lineas.length; i++) {
-			for(int j = 1; i<lineas.length; i++) {
+			for(int j = 1; i<lineas.length; j++) {
 				if(i!=j && lineas[i].getColor().equals(lineas[j].getColor())) throw new IllegalArgumentException();
 				if(i!=j && lineas[i].getNumero() == lineas[j].getNumero()) throw new IllegalArgumentException();
 			}
@@ -175,7 +175,7 @@ public class RedMetro {
 		if(this.getLineasEnServicio().length<=2) throw new IllegalArgumentException();
 		if(!lineas.contains(linea)) throw new IllegalArgumentException();
 		
-		lineasInactivas.add(linea);
+		if(!lineasInactivas.contains(linea)) lineasInactivas.add(linea);
 	}
 
 	/**
@@ -198,12 +198,12 @@ public class RedMetro {
 		Linea[] lineasEnServicio = this.getLineasEnServicio();
 		for( int i = 0; i< lineasEnServicio.length; i++) {
 			Estacion[] estacionesDirectas = lineasEnServicio[i].getEstaciones(true);
-			for(int j = 0; j<estacionesDirectas.length; i++) {
+			for(int j = 0; j<estacionesDirectas.length; j++) {
 				if(estacionesDirectas[i].getNombre().equals(nombreEstacion)) lineasEstacion.add(lineasEnServicio[i]); 
 			}
 			
 			Estacion[] estacionesInversas = lineasEnServicio[i].getEstaciones(false);
-			for(int j = 0; j<estacionesDirectas.length; i++) {
+			for(int j = 0; j<estacionesDirectas.length; j++) {
 				if(estacionesInversas[i].getNombre().equals(nombreEstacion)) lineasEstacion.add(lineasEnServicio[i]); 
 			}
 		}
@@ -226,13 +226,17 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public Estacion[] getCorrespondencia(Linea linea1, Linea linea2) {
-		// TODO Auto-generated method stub
-		return null;
+		if(linea1== null || linea2 == null) throw new IllegalArgumentException();
+		if(!this.enServicio(linea1) || !this.enServicio(linea2)) throw new IllegalArgumentException();
+		
+		Estacion[] correspondencias = linea1.getCorrespondencias(linea2);
+		return correspondencias;
 	}
 
 	/**
 	 * Elimina la linea definitivamente de la red de metro.
 	 * La linea tiene que formar parte de la red de metro
+	 * Si la linea ya estaba eliminada el metodo queda sin efecto
 	 * 
 	 * @pre.condition {@code linea != null}
 	 * @pre.condition {@code getLinea.contains(linea)}
@@ -241,8 +245,10 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones 
 	 */
 	public void eliminarLinea(Linea linea) {
-		// TODO Auto-generated method stub
+		if(linea == null) throw new IllegalArgumentException();
+		if(!lineas.contains(linea)) throw new IllegalArgumentException();
 		
+		if(!lineasEliminadas.contains(linea)) lineasEliminadas.add(linea);
 	}
 
 	/**
@@ -257,8 +263,10 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones 
 	 */
 	public void reactivarLinea(Linea linea) {
-		// TODO Auto-generated method stub
+		if(linea == null) throw new IllegalArgumentException();
+		if(!lineas.contains(linea)) throw new IllegalArgumentException();
 		
+		if(lineasInactivas.contains(linea)) lineasInactivas.remove(linea);		
 	}
 
 	/**
@@ -277,7 +285,15 @@ public class RedMetro {
 	 * @throws IllegalArgumentException si no se cumple la precondicion
 	 */
 	public Linea getConexionSinTrasbordo(Estacion estacionPartida, Estacion estacionDestino) {
-		// TODO Auto-generated method stub
+		if(estacionPartida == null || estacionDestino == null) throw new IllegalArgumentException();
+		
+		Linea linea;
+		for(int i = 0; i<lineas.size(); i++) {
+			if(lineas.get(i).estaConectada(estacionPartida, estacionDestino) && this.enServicio(lineas.get(i))) {
+				linea = lineas.get(i);
+				return linea; 
+			}
+		}
 		return null;
 	}
 

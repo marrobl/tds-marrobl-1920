@@ -326,6 +326,10 @@ public class RedMetro {
 		return null;
 	}
 
+	/**
+	 * Devuelve las lineas que estan activas en la red de metro
+	 * @return todas las lineas activas
+	 */
 	public Linea[] getLineasEnServicio() {
 		// TODO Auto-generated method stub
 		return null;

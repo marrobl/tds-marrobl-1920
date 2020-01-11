@@ -328,7 +328,8 @@ public class RedMetro {
 		
 		Linea[] lineasActivas = this.getLineasEnServicio();
 		ArrayList<Linea> lineasTrasb = new ArrayList<>();
-		Linea lineaPartida = null, lineaDestino = null;
+		Linea lineaPartida = null;
+		Linea lineaDestino = null;
 		for(int i = 0;i < lineasActivas.length; i++) {
 			Estacion[] estacionesPartida = lineasActivas[i].getEstaciones(true);
 			for(int j = 0; j< estacionesPartida.length; j++) {
@@ -362,7 +363,7 @@ public class RedMetro {
 	 * @return estacion cercana si se ha encontrado alguna, nada en cualquier otro caso
 	 */
 	public Estacion getEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {
-		// TODO Auto-generated method stub
+		//TODO
 		return null;
 	}
 

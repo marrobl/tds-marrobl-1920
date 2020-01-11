@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 import org.json.JSONObject;
 
+
+import com.google.gson.Gson;
+
 import es.uva.inf.maps.CoordenadasGPS;
 /**
  * Clase que representa una red de metro, formada por al menos dos lineas.
@@ -346,16 +349,17 @@ public class RedMetro {
 		return null;
 	}
 	/**
-	 * Devuelve la informacion de la red de metro en formato JSON
+	 * Devuelve la informacion de la red de metro en formato JsonObject
 	 * Devuelve la informacion de todas, tanto en servicio como sin servicio,
 	 * de las lineas que conforman esa red
 	 * 
 	 * @return objeto JSON que representa todas las lineas que tiene la red de metro
 	 */
 
-	public JSONObject getInfoRed() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getInfoRed() {
+		Gson gson = new Gson();
+		String json = gson.toJson(this);
+		return json;
 	}
 
 	/**

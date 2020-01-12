@@ -161,6 +161,7 @@ public class RedMetro {
 	 * 
 	 * @pre.condition {@code linea != null}
 	 * @pre.condition linea tiene que pertenecer a la red
+	 * @param linea linea que se quiere comprobar que este en servicio
 	 * @return true, si la linea se encuentra en servicio, false en cualquier otro caso
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */

@@ -75,7 +75,7 @@
 	<!-- Objetivo calidad -->
 	<target name="calidad" description="obtener informe sobre calidad" depends="obtenerInformeCobertura">
 		<exec dir="." executable="${executable}">
-			<arg line="${arglineIni} mvn -P Unit,Integration jxr:jxr pmd:pmd sonar:sonar -Dsonar.host.url=https://sonarqube.inf.uva.es/ -Dsonar.login=e846859c7360828aee75a1cb692927a3cd4cc411 -Dsonar.analysis.mode=publish -Dsonar.issuesReport.console.enable=true -Dsonar.jacoco.reportPath=target/coverage/jacoco.exec -Dsonar.junit.reportPaths=target/surefire-reports ${arglineEnd}" />
+			<arg line="${arglineIni} mvn -P Isolation jxr:jxr pmd:pmd sonar:sonar -Dsonar.host.url=https://sonarqube.inf.uva.es/ -Dsonar.login=e846859c7360828aee75a1cb692927a3cd4cc411 -Dsonar.analysis.mode=publish -Dsonar.issuesReport.console.enable=true -Dsonar.jacoco.reportPath=target/coverage/jacoco.exec -Dsonar.junit.reportPaths=target/surefire-reports ${arglineEnd}" />
 		</exec>
 	</target>
 

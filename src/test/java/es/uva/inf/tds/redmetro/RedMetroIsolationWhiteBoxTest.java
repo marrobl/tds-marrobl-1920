@@ -160,13 +160,11 @@ public class RedMetroIsolationWhiteBoxTest {
 	@Test
 	@Tag("WhiteBox")
 	@Tag("Isolation")
-	public void testRedMetroReactivarLineaInactiva() {
+	public void testRedMetroReactivarLineaActiva() {
 		Linea[] lineas = {lineaPrimera,lineaSegunda,lineaTercera,lineaCuarta};
 		RedMetro red = new RedMetro(lineas);
-		red.retirarLinea(lineaPrimera);
-		assertFalse(red.enServicio(lineaPrimera));
-		red.reactivarLinea(lineaPrimera);
 		assertTrue(red.enServicio(lineaPrimera));
+		red.reactivarLinea(lineaPrimera);
 	}
 	
 	@Test

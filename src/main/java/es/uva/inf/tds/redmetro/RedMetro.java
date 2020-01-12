@@ -49,42 +49,7 @@ public class RedMetro {
 		this.lineasInactivas = new ArrayList<>();
 		this.lineasEliminadas = new ArrayList<>();
 	}
-
-	/**
-	 * Inicializador de una red de metro a partir de un objeto JSON 
-	 * que contiene toda la informacion sobre las lineas. 
-	 * Una red de metro tiene que tener al menos dos lineas. 
-	 * Una linea esta univocamente identificada en la red por un numero consecutivo
-	 * y un color que no puede coincidir con colores de otras lineas de esa red
-	 * Las lineas se inicializan en servicio
-	 * 
-	 * @pre.condition {@code json != null}
-	 * @pre.condition lineas tienen que ser al menos dos
-	 * @pre.condition las lineas tienen numeros consecutivos
-	 * @pre.condition las lineas tienen diferentes colores
-	 * 
-	 * @param jsonArray formato json que contiene toda la informacion sobre la red
-	 * 
-	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
-	 */
-	public RedMetro(String jsonArray) {
-		if(jsonArray == null) throw new IllegalArgumentException();
-		Gson gson = new Gson();
-		Type listType = new TypeToken<Linea[]>(){}.getType();
-		ArrayList<Linea> lineas = new ArrayList<Linea>(Arrays.asList(gson.fromJson(jsonArray, listType)));
-		
-		if(lineas.size()<2) throw new IllegalArgumentException();
-		for(int i = 0; i<lineas.size(); i++) {
-			for(int j = 1; i<lineas.size(); j++) {
-				if(i!=j && lineas.get(i).getColor().equals(lineas.get(j).getColor())) throw new IllegalArgumentException();
-				if(i!=j && lineas.get(i).getNumero() == lineas.get(j).getNumero()) throw new IllegalArgumentException();
-			}
-		}
-		this.lineas= lineas;
-		this.lineasInactivas = new ArrayList<>();
-		this.lineasEliminadas = new ArrayList<>();
-	}
-
+	
 	/**
 	 * Consulta las lineas que pertenecen a la red de metro, ya esten en servicio o fuera de servicio
 	 * @return lineas que forman la red
@@ -394,39 +359,6 @@ public class RedMetro {
 			}
 		}
 		return hayEstacionCercana;
-	}
-
-	/**
-	 * Devuelve informacion en formato JSON sobre las lineas
-	 * en la que se encuentra la estacion
-	 * Devuelve una lista de lineas si hay mas de una coincidencia
-	 * Si no hay ninguna linea que contenga la estacion, devuelve vacio
-	 * @pre.condition {@code nombreEstacion!= null}
-	 * @param nombreEstacion nombre de la estacion 
-	 * @return JSONObject lista de lineas que contienen a la estacion, vacio en cualquier otro caso
-	 */
-	public String getInfoLineas(String nombreEstacion) {
-		if(nombreEstacion == null) throw new IllegalArgumentException();
-		
-		Linea[] lineasInfo = this.getLineas(nombreEstacion);
-		Gson gson = new Gson();
-		Type tipoLineas = new TypeToken<Linea[]>(){}.getType();
-		String jsonLineas = gson.toJson(lineasInfo, tipoLineas);
-		return jsonLineas;
-	}
-	/**
-	 * Devuelve la informacion de la red de metro en formato JsonObject
-	 * Devuelve la informacion de todas, tanto en servicio como sin servicio,
-	 * de las lineas que conforman esa red
-	 * 
-	 * @return objeto JSON que representa todas las lineas que tiene la red de metro
-	 */
-
-	public String getInfoRed() {
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls()
-	            .create();
-		String json = gson.toJson(lineas);
-		return json;
 	}
 
 	/**

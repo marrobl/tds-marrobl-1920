@@ -118,50 +118,7 @@ public class RedMetroBlackBoxTest {
 		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
 	}
 	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroJsonUnaLinea() {
-		String json = "{lineaPrimera}";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(json);});
-	}
 	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroJsonDosLineas() {
-		String json = "[lineaPrimera, lineaSegunda]";
-		RedMetro red = new RedMetro(json);
-		assertNotNull(red);
-		Linea[] esperado = {lineaPrimera, lineaSegunda};
-		assertArrayEquals(esperado, red.getLineas());
-	}
-	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroLineasIgualColorJSon() {
-		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
-		lineaPrimera = new Linea(1,"rojo",estaciones1);
-		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
-		lineaSegunda = new Linea(2, "rojo", estaciones2);
-		String lineasMismoColor = "[lineaPrimera, lineaSegunda]";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(lineasMismoColor);});
-	}
-	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroLineasIgualNunJson() {
-		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
-		lineaPrimera = new Linea(1,"rojo",estaciones1);
-		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
-		lineaSegunda = new Linea(1, "azul", estaciones2);
-		String lineasMismoNumero = "[lineaPrimera, lineaSegunda]";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
-	}
 	
 	@Test
 	@Tag("BlackBox")
@@ -328,10 +285,5 @@ public class RedMetroBlackBoxTest {
 		fail("not yet implemented");
 		assertFalse(redMetro.hayEstacionCercana(coordenadas, 40));
 	}
-	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroGetInfoLineasPorNombreEstacionNohay() {
-		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas("nombre de estacion que no existe");});
-	}
+
 }

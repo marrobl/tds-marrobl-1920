@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import es.uva.inf.maps.CoordenadasGPS;
@@ -45,6 +46,8 @@ public class RedMetro {
 		}
 		 
 		this.lineas =  new ArrayList<Linea>(Arrays.asList(lineas));
+		this.lineasInactivas = new ArrayList<>();
+		this.lineasEliminadas = new ArrayList<>();
 	}
 
 	/**
@@ -76,6 +79,8 @@ public class RedMetro {
 				if(i!=j && lineas.get(i).getNumero() == lineas.get(j).getNumero()) throw new IllegalArgumentException();
 			}
 		}
+		this.lineasInactivas = new ArrayList<>();
+		this.lineasEliminadas = new ArrayList<>();
 	}
 
 	/**
@@ -110,7 +115,7 @@ public class RedMetro {
 			if(lineas.get(i).getNumero() == linea.getNumero()) throw new IllegalArgumentException();
 		}
 		int ultimoNumero = lineas.get(lineas.size()-1).getNumero();
-		if(linea.getNumero()+1 != ultimoNumero) throw new IllegalArgumentException();
+		if(linea.getNumero() != ultimoNumero+1) throw new IllegalArgumentException();
 		
 		lineas.add(linea);
 	}
@@ -211,15 +216,13 @@ public class RedMetro {
 		for( int i = 0; i< lineasEnServicio.length; i++) {
 			Estacion[] estacionesDirectas = lineasEnServicio[i].getEstaciones(true);
 			for(int j = 0; j<estacionesDirectas.length; j++) {
-				if(estacionesDirectas[i].getNombre().equals(nombreEstacion)) lineasEstacion.add(lineasEnServicio[i]); 
-			}
-			
-			Estacion[] estacionesInversas = lineasEnServicio[i].getEstaciones(false);
-			for(int j = 0; j<estacionesDirectas.length; j++) {
-				if(estacionesInversas[i].getNombre().equals(nombreEstacion)) lineasEstacion.add(lineasEnServicio[i]); 
+				if(estacionesDirectas[j].getNombre().equals(nombreEstacion)) lineasEstacion.add(lineasEnServicio[i]); 
 			}
 		}
-		Linea[] lineasConEstacion = (Linea[]) lineasEstacion.toArray();
+		Linea[] lineasConEstacion = null;
+		if(lineasEstacion.size()>0) {
+			lineasConEstacion = lineasEstacion.toArray(new Linea[lineasEstacion.size()]);
+		}
 		return lineasConEstacion;
 	}
 
@@ -339,21 +342,25 @@ public class RedMetro {
 			for(int j = 0; j< estacionesLlegada.length; j++) {
 				if(estacionesLlegada[j].getNombre().equals(estacionDestino.getNombre())) lineaDestino = lineasActivas[i];
 			}
+			
+			if(lineaPartida != null && lineaDestino != null) {
+				for(int k = 0; k<lineasActivas.length; k++) {
+					if(lineaPartida.hayCorrespondencia(lineasActivas[k]) && 
+							lineaDestino.hayCorrespondencia(lineasActivas[k])){
+						lineasTrasb.add(lineaPartida);
+						lineasTrasb.add(lineasActivas[k]);
+						lineasTrasb.add(lineaDestino);
+						Linea[] lineasTrasbordo = lineasTrasb.toArray(new Linea[lineasTrasb.size()]);
+						return lineasTrasbordo;
+					}
+				}
+		
+			}
+			
 		}
 		
-		if(lineaPartida != null && lineaDestino != null) {
-			for(int i = 0; i<lineasActivas.length; i++) {
-				if(lineaPartida.hayCorrespondencia(lineasActivas[i]) && 
-						lineaDestino.hayCorrespondencia(lineasActivas[i])){
-					lineasTrasb.add(lineaPartida);
-					lineasTrasb.add(lineasActivas[i]);
-					lineasTrasb.add(lineaDestino);
-				}
-			}
 	
-		}
-		Linea[] lineasTrasbordo = (Linea[]) lineasTrasb.toArray();
-		return lineasTrasbordo;
+		return null;
 	}
 
 	/**
@@ -370,23 +377,15 @@ public class RedMetro {
 	 * @return true si se ha encontrado alguna estacion cercana, false en cualquier otro caso
 	 */
 	public boolean hayEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {
+		if(coordenada == null) throw new IllegalArgumentException();
+		if(distanciaMax<0) throw new IllegalArgumentException();
 		Linea[] lineasActivas = this.getLineasEnServicio();
 		boolean hayEstacionCercana = false;
 		for(int i = 0; i<lineasActivas.length; i++) {
 			Estacion[] estacionesD = lineasActivas[i].getEstaciones(true);
+
 			for(int j = 0; j<estacionesD.length; j++) {
 				CoordenadasGPS[] coordenadas = estacionesD[j].getCoordenadasGPS();
-				for(int k = 0; k < coordenadas.length; k++) {
-					if(coordenadas[k].getDistanciaA(coordenada)<= distanciaMax) {
-						hayEstacionCercana = true;
-						return hayEstacionCercana;
-					}
-				}
-			}
-			
-			Estacion[] estacionesI = lineasActivas[i].getEstaciones(false);
-			for(int j = 0; j<estacionesI.length; j++) {
-				CoordenadasGPS[] coordenadas = estacionesI[j].getCoordenadasGPS();
 				for(int k = 0; k < coordenadas.length; k++) {
 					if(coordenadas[k].getDistanciaA(coordenada)<= distanciaMax) {
 						hayEstacionCercana = true;
@@ -424,8 +423,9 @@ public class RedMetro {
 	 */
 
 	public String getInfoRed() {
-		Gson gson = new Gson();
-		String json = gson.toJson(this);
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().serializeNulls()
+	            .create();
+		String json = gson.toJson(lineas);
 		return json;
 	}
 
@@ -436,9 +436,12 @@ public class RedMetro {
 	public Linea[] getLineasEnServicio() {
 		ArrayList<Linea> lineasServicio = new ArrayList<>();
 		for(int i = 0; i < lineas.size(); i++) {
-			if(!lineasInactivas.contains(lineas.get(i)) && !lineasEliminadas.contains(lineas.get(i))) lineasServicio.add(lineas.get(i));
+			if(!lineasInactivas.contains(lineas.get(i)) && !lineasEliminadas.contains(lineas.get(i))) {
+				lineasServicio.add(lineas.get(i));
+			}
 		}
-		Linea[] lineasEnServicio = (Linea[]) lineasServicio.toArray();
+		
+		Linea[] lineasEnServicio = lineasServicio.toArray(new Linea[lineasServicio.size()]);
 		return lineasEnServicio;
 	}
 

@@ -1,13 +1,7 @@
 package es.uva.inf.tds.redmetro;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import es.uva.inf.maps.CoordenadasGPS;
 /**
  * Clase que representa una red de metro, formada por al menos dos lineas.
@@ -45,7 +39,7 @@ public class RedMetro {
 			}
 		}
 		 
-		this.lineas =  new ArrayList<Linea>(Arrays.asList(lineas));
+		this.lineas =  new ArrayList<>(Arrays.asList(lineas));
 		this.lineasInactivas = new ArrayList<>();
 		this.lineasEliminadas = new ArrayList<>();
 	}
@@ -55,8 +49,7 @@ public class RedMetro {
 	 * @return lineas que forman la red
 	 */
 	public Linea[] getLineas() {
-		Linea[] linea = lineas.toArray(new Linea[lineas.size()]);
-		return linea;
+		return lineas.toArray(new Linea[lineas.size()]);
 	}
 
 	/**
@@ -188,7 +181,7 @@ public class RedMetro {
 			}
 		}
 		Linea[] lineasConEstacion = null;
-		if(lineasEstacion.size()>0) {
+		if(!lineasEstacion.isEmpty()) {
 			lineasConEstacion = lineasEstacion.toArray(new Linea[lineasEstacion.size()]);
 		}
 		return lineasConEstacion;
@@ -211,9 +204,8 @@ public class RedMetro {
 	public Estacion[] getCorrespondencia(Linea linea1, Linea linea2) {
 		if(linea1== null || linea2 == null) throw new IllegalArgumentException();
 		if(!this.enServicio(linea1) || !this.enServicio(linea2)) throw new IllegalArgumentException();
-		
-		Estacion[] correspondencias = linea1.getCorrespondencias(linea2);
-		return correspondencias;
+	
+		return linea1.getCorrespondencias(linea2);
 	}
 
 	/**
@@ -319,12 +311,11 @@ public class RedMetro {
 					lineasTrasb.add(lineaPartida);
 					lineasTrasb.add(lineasActivas[k]);
 					lineasTrasb.add(lineaDestino);
-					Linea[] lineasTrasbordo = lineasTrasb.toArray(new Linea[lineasTrasb.size()]);
-					return lineasTrasbordo;
+					return lineasTrasb.toArray(new Linea[lineasTrasb.size()]);
 				}
 			}
 		}
-		return null;
+		return lineasTrasb.toArray(new Linea[lineasTrasb.size()]);
 	}
 
 	/**
@@ -372,9 +363,7 @@ public class RedMetro {
 				lineasServicio.add(lineas.get(i));
 			}
 		}
-		
-		Linea[] lineasEnServicio = lineasServicio.toArray(new Linea[lineasServicio.size()]);
-		return lineasEnServicio;
+		return lineasServicio.toArray(new Linea[lineasServicio.size()]);
 	}
 
 

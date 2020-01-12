@@ -271,10 +271,12 @@ public class RedMetroIsolationTDDTest {
 	@Tag("TDD")
 	@Tag("Isolation")
 	public void testRedMetroConsultarCorrespondencia() {
-		CoordenadasGPS coord_e = new CoordenadasGPS("0100°38'06\"N","136°05'59\"E");
-		CoordenadasGPS coord_s = new CoordenadasGPS("098°38'06\"N","135°05'59\"E");
+		CoordenadasGPS coord_e = mock(CoordenadasGPS.class);
+		CoordenadasGPS coord_s = mock(CoordenadasGPS.class);
 		CoordenadasGPS[] coordenadas = {coord_e, coord_s};
- 		Estacion estacion= new Estacion("Tercera Estacion L2", coordenadas);
+		Estacion estacion = mock(Estacion.class);
+		when(estacion.getNombre()).thenReturn("Tercera Estacion L2");
+		when(estacion.getCoordenadasGPS()).thenReturn(coordenadas);
  		Estacion[] estacionReal = {estacion};
 		Estacion[] esperado = {estacion};
 		when(lineaSegunda.getCorrespondencias(lineaTercera)).thenReturn(estacionReal);
@@ -353,14 +355,27 @@ public class RedMetroIsolationTDDTest {
 	@Tag("Isolation")
 	public void testRedMetroGetConexionTrasbordo() {
 		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
- 		lineaPrimera = new Linea(1,"rojo",estaciones1);
+		when(lineaPrimera.getColor()).thenReturn("rojo");
+		when(lineaPrimera.getNumero()).thenReturn(1);
+		when(lineaPrimera.getEstaciones(true)).thenReturn(estaciones1);
+		
  		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
- 		lineaSegunda = new Linea(2, "azul", estaciones2);
+		when(lineaSegunda.getColor()).thenReturn("azul");
+		when(lineaSegunda.getNumero()).thenReturn(2);
+		when(lineaSegunda.getEstaciones(true)).thenReturn(estaciones2);
+
 		Estacion[] estaciones3 = {estacionFinal1, estacionFinal2};
- 		lineaTercera = new Linea(3, "verde", estaciones3);
+		when(lineaTercera.getColor()).thenReturn("verde");
+		when(lineaTercera.getNumero()).thenReturn(3);
+		when(lineaTercera.getEstaciones(true)).thenReturn(estaciones3);
+
+		when(lineaPrimera.hayCorrespondencia(lineaTercera)).thenReturn(true);
+		when(lineaSegunda.hayCorrespondencia(lineaTercera)).thenReturn(true);
+		Linea[] linea = {lineaPrimera,lineaSegunda,lineaTercera};
+ 		redMetro = new RedMetro(linea);
  		Linea[] esperado = {lineaPrimera, lineaTercera, lineaSegunda};
  		assertArrayEquals(esperado, redMetro.getConexionTrasbordo(estacionInicial1, estacionIntermedia2));
-	}
+ 	}
 	
 	@Test
 	@Tag("TDD")
@@ -373,7 +388,9 @@ public class RedMetroIsolationTDDTest {
 	@Tag("TDD")
 	@Tag("Isolation")
 	public void testRedMetroHayEstacionCercana() {
-		CoordenadasGPS coord1 = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
+		CoordenadasGPS coord1 = mock(CoordenadasGPS.class);
+		when(coord1.getLatitudGMS()).thenReturn("041°38'06\"N");
+		when(coord1.getLongitudGMS()).thenReturn("135°05'59\"E");
  		assertTrue(redMetro.hayEstacionCercana(coord1,400));
 	}
 	
@@ -388,14 +405,26 @@ public class RedMetroIsolationTDDTest {
 	@Tag("TDD")
 	@Tag("Isolation")
 	public void testRedMetroGetInfoLineas() throws JSONException {
-		CoordenadasGPS entrada2 = new CoordenadasGPS("058°38'06\"N","136°05'59\"E");
-		CoordenadasGPS salida2 = new CoordenadasGPS("064°38'06\"N","135°05'59\"E");
+		CoordenadasGPS entrada2 = mock(CoordenadasGPS.class);
+		when(entrada2.getLatitudGMS()).thenReturn("058°38'06\"N");
+		when(entrada2.getLongitudGMS()).thenReturn("136°05'59\"E");
+		CoordenadasGPS salida2 = mock(CoordenadasGPS.class);
+		when(entrada2.getLatitudGMS()).thenReturn("064°38'06\"N");
+		when(entrada2.getLongitudGMS()).thenReturn("135°05'59\"E");
 		CoordenadasGPS[] coordenadasFinal1 = {entrada2, salida2};
-		estacionFinal1 = new Estacion("Segunda Estacion L1", coordenadasFinal1);
+		estacionFinal1 = mock(Estacion.class);
+		when(estacionFinal1.getNombre()).thenReturn("Segunda Estacion L1");
+		when(estacionFinal1.getCoordenadasGPS()).thenReturn(coordenadasFinal1);
 		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
- 		lineaPrimera = new Linea(1,"rojo",estaciones1);
+		lineaPrimera = mock(Linea.class);
+		when(lineaPrimera.getNumero()).thenReturn(1);
+		when(lineaPrimera.getColor()).thenReturn("rojo");
+		when(lineaPrimera.getEstaciones(true)).thenReturn(estaciones1);
  		Estacion[] estaciones3 = {estacionFinal1, estacionFinal2};
- 		lineaTercera = new Linea(3, "verde", estaciones3);
+ 		lineaTercera = mock(Linea.class);
+ 		when(lineaTercera.getNumero()).thenReturn(3);
+ 		when(lineaTercera.getColor()).thenReturn("verde");
+ 		when(lineaTercera.getEstaciones(true)).thenReturn(estaciones3);
  		
  		JSONAssert.assertEquals("[lineaPrimera, lineaTercera]", redMetro.getInfoLineas("Segunda Estacion L1"),JSONCompareMode.STRICT);
 	}

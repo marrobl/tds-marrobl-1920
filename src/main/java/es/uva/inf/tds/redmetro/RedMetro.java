@@ -337,29 +337,25 @@ public class RedMetro {
 			for(int j = 0; j< estacionesPartida.length; j++) {
 				if(estacionesPartida[j].getNombre().equals(estacionPartida.getNombre())) lineaPartida = lineasActivas[i];
 			}
-			
+		}
+		for(int i = 0;i < lineasActivas.length; i++) {
 			Estacion[] estacionesLlegada = lineasActivas[i].getEstaciones(false);
 			for(int j = 0; j< estacionesLlegada.length; j++) {
 				if(estacionesLlegada[j].getNombre().equals(estacionDestino.getNombre())) lineaDestino = lineasActivas[i];
 			}
-			
-			if(lineaPartida != null && lineaDestino != null) {
-				for(int k = 0; k<lineasActivas.length; k++) {
-					if(lineaPartida.hayCorrespondencia(lineasActivas[k]) && 
-							lineaDestino.hayCorrespondencia(lineasActivas[k])){
-						lineasTrasb.add(lineaPartida);
-						lineasTrasb.add(lineasActivas[k]);
-						lineasTrasb.add(lineaDestino);
-						Linea[] lineasTrasbordo = lineasTrasb.toArray(new Linea[lineasTrasb.size()]);
-						return lineasTrasbordo;
-					}
-				}
-		
-			}
-			
 		}
-		
-	
+		if(lineaPartida != null && lineaDestino != null) {
+			for(int k = 0; k<lineasActivas.length; k++) {
+				if(lineaPartida.hayCorrespondencia(lineasActivas[k]) && 
+					lineaDestino.hayCorrespondencia(lineasActivas[k])){
+					lineasTrasb.add(lineaPartida);
+					lineasTrasb.add(lineasActivas[k]);
+					lineasTrasb.add(lineaDestino);
+					Linea[] lineasTrasbordo = lineasTrasb.toArray(new Linea[lineasTrasb.size()]);
+					return lineasTrasbordo;
+				}
+			}
+		}
 		return null;
 	}
 

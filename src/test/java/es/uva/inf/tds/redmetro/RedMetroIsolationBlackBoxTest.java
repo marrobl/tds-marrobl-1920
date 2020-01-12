@@ -163,51 +163,6 @@ public class RedMetroIsolationBlackBoxTest {
 		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
 	}
 	
-/*	@Test
-	@Tag("BlackBox")
-	@Tag("Isolation")
-	public void testRedMetroJsonUnaLinea() {
-		String json = "{lineaPrimera}";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(json);});
-	}*/
-	
-/*	@Test
-	@Tag("BlackBox")
-	@Tag("Isolation")
-	public void testRedMetroJsonDosLineas() {
-		String json = "[lineaPrimera, lineaSegunda]";
-		RedMetro red = new RedMetro(json);
-		assertNotNull(red);
-		Linea[] esperado = {lineaPrimera, lineaSegunda};
-		assertArrayEquals(esperado, red.getLineas());
-	}*/
-	
-/*	@Test
-	@Tag("BlackBox")
-	@Tag("Isolation")
-	public void testRedMetroLineasIgualColorJSon() {
-		when(lineaPrimera.getColor()).thenReturn("rojo");
-		when(lineaSegunda.getColor()).thenReturn("rojo");
-		String lineasMismoColor = "[lineaPrimera, lineaSegunda]";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(lineasMismoColor);});
-	}*/
-	
-	/*@Test
-	@Tag("BlackBox")
-	@Tag("Isolation")
-	public void testRedMetroLineasIgualNunJson() {
-		when(lineaPrimera.getNumero()).thenReturn(1);
-		when(lineaSegunda.getNumero()).thenReturn(1);
-		String lineasMismoNumero = "[lineaPrimera, lineaSegunda]";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
-	}*/
-	
 	@Test
 	@Tag("BlackBox")
 	@Tag("Isolation")
@@ -436,12 +391,6 @@ public class RedMetroIsolationBlackBoxTest {
  		RedMetro red = new RedMetro(lineaDeRed);
 		assertFalse(red.hayEstacionCercana(coordenadas, 40));
 	}
-	
-/*	@Test
-	@Tag("BlackBox")
-	@Tag("Isolation")
-	public void testRedMetroGetInfoLineasPorNombreEstacionNohay() {
-		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas("nombre de estacion que no existe");});
-	}*/
+
 }
 

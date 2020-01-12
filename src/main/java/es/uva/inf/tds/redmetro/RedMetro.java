@@ -70,8 +70,9 @@ public class RedMetro {
 	public RedMetro(String jsonArray) {
 		if(jsonArray == null) throw new IllegalArgumentException();
 		Gson gson = new Gson();
-		Type listType = new TypeToken<ArrayList<Linea>>(){}.getType();
-		this.lineas = new ArrayList<Linea>(Arrays.asList(gson.fromJson(jsonArray, listType)));
+		Type listType = new TypeToken<Linea[]>(){}.getType();
+		ArrayList<Linea> lineas = new ArrayList<Linea>(Arrays.asList(gson.fromJson(jsonArray, listType)));
+		
 		if(lineas.size()<2) throw new IllegalArgumentException();
 		for(int i = 0; i<lineas.size(); i++) {
 			for(int j = 1; i<lineas.size(); j++) {
@@ -79,6 +80,7 @@ public class RedMetro {
 				if(i!=j && lineas.get(i).getNumero() == lineas.get(j).getNumero()) throw new IllegalArgumentException();
 			}
 		}
+		this.lineas= lineas;
 		this.lineasInactivas = new ArrayList<>();
 		this.lineasEliminadas = new ArrayList<>();
 	}
@@ -407,7 +409,8 @@ public class RedMetro {
 		
 		Linea[] lineasInfo = this.getLineas(nombreEstacion);
 		Gson gson = new Gson();
-		String jsonLineas = gson.toJson(lineasInfo);
+		Type tipoLineas = new TypeToken<Linea[]>(){}.getType();
+		String jsonLineas = gson.toJson(lineasInfo, tipoLineas);
 		return jsonLineas;
 	}
 	/**

@@ -163,7 +163,7 @@ public class RedMetroIsolationBlackBoxTest {
 		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
 	}
 	
-	@Test
+/*	@Test
 	@Tag("BlackBox")
 	@Tag("Isolation")
 	public void testRedMetroJsonUnaLinea() {
@@ -171,9 +171,9 @@ public class RedMetroIsolationBlackBoxTest {
 		assertThrows(IllegalArgumentException.class, () -> { 
 		@SuppressWarnings("unused")
 		RedMetro redDeMetro = new RedMetro(json);});
-	}
+	}*/
 	
-	@Test
+/*	@Test
 	@Tag("BlackBox")
 	@Tag("Isolation")
 	public void testRedMetroJsonDosLineas() {
@@ -182,9 +182,9 @@ public class RedMetroIsolationBlackBoxTest {
 		assertNotNull(red);
 		Linea[] esperado = {lineaPrimera, lineaSegunda};
 		assertArrayEquals(esperado, red.getLineas());
-	}
+	}*/
 	
-	@Test
+/*	@Test
 	@Tag("BlackBox")
 	@Tag("Isolation")
 	public void testRedMetroLineasIgualColorJSon() {
@@ -194,9 +194,9 @@ public class RedMetroIsolationBlackBoxTest {
 		assertThrows(IllegalArgumentException.class, () -> { 
 		@SuppressWarnings("unused")
 		RedMetro redDeMetro = new RedMetro(lineasMismoColor);});
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	@Tag("BlackBox")
 	@Tag("Isolation")
 	public void testRedMetroLineasIgualNunJson() {
@@ -206,7 +206,7 @@ public class RedMetroIsolationBlackBoxTest {
 		assertThrows(IllegalArgumentException.class, () -> { 
 		@SuppressWarnings("unused")
 		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
-	}
+	}*/
 	
 	@Test
 	@Tag("BlackBox")
@@ -437,11 +437,11 @@ public class RedMetroIsolationBlackBoxTest {
 		assertFalse(red.hayEstacionCercana(coordenadas, 40));
 	}
 	
-	@Test
+/*	@Test
 	@Tag("BlackBox")
 	@Tag("Isolation")
 	public void testRedMetroGetInfoLineasPorNombreEstacionNohay() {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas("nombre de estacion que no existe");});
-	}
+	}*/
 }
 

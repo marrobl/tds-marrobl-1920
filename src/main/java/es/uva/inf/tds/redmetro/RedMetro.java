@@ -315,7 +315,7 @@ public class RedMetro {
 				}
 			}
 		}
-		return lineasTrasb.toArray(new Linea[lineasTrasb.size()]);
+		return null;
 	}
 
 	/**

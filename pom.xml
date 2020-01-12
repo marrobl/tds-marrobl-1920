@@ -13,18 +13,12 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<junit.platform.version>1.5.2</junit.platform.version>
-		<sonar.host.url>https://sonarqube.inf.uva.es/</sonar.host.url>
-		<sonar.jdbc.url>jdbc:postgresql://www.example.com/sonar</sonar.jdbc.url>
-		<sonar.jdbc.username>sonar</sonar.jdbc.username>
-		<sonar.jdbc.password>sonar</sonar.jdbc.password>
-		<sonar.exclusions>src/main/java/es.uva.inf.maps/CoordenadasGPS.java,src/main/java/es.uva.inf.uva.tds.redmetro/Estacion.java,src/main/java/es.uva.inf.uva.tds.redmetro/Linea.java</sonar.exclusions>
-		<sonar.dynamic>reuseReports</sonar.dynamic>
 	</properties>
 	<profiles>
 		<profile>
 			<id>allTests</id>
 			<properties>
-				<groups>TDD|RedMetro</groups>
+				<groups>TDD|BlackBox|WhiteBox</groups>
 			</properties>
 		</profile>
 		<profile>
@@ -52,35 +46,17 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>Integration</id>
+			<properties>
+				<groups>TDD</groups>
+			</properties>
+		</profile>
+		<profile>
 			<id>soloRedMetro</id>
 			<properties>
 				<groups>RedMetro&amp;TDD</groups>
 			</properties>
 		</profile>
-		<!-- BEGIN: Specific to mapping unit tests and covered code -->
-		<profile>
-			<id>coverage-per-test</id>
-
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.22.2</version>
-						<configuration>
-							<excludes>
-								<exclude>src/test/java/es.uva.inf.tds.redmetro/RedMetroTDDTest.java</exclude>
-								<exclude>src/test/java/es.uva.inf.tds.redmetro/RedMetroBlackBoxTest.java</exclude>
-								<exclude>src/test/java/es.uva.inf.tds.redmetro/RedMetroSequenceTest.java</exclude>
-								<exclude>src/main/java/es.uva.inf.tds.redmetro/Estacion.java</exclude>
-								<exclude>src/main/java/es.uva.inf.tds.redmetro/Linea.java</exclude>
-								<exclude>src/main/java/es.uva.inf.maps/CoordenadasGPS.java</exclude>
-							</excludes>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<!-- END: Specific to mapping unit tests and covered code -->
 	</profiles>
 	<dependencies>
 		<dependency>
@@ -124,12 +100,32 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-			</plugin>
-			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
+				<configuration>
+					<excludes>
+						<exclude>/Estacion.java</exclude>
+						<exclude>/Linea.java</exclude>
+						<exclude>/CoordenadasGPS.java</exclude>
+						<exclude>/RedMetroTDDTest.java</exclude>
+						<exclude>/RedMetroBlackBoxTest.java</exclude>
+						<exclude>/RedMetroSequenceTest.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.0.0</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>

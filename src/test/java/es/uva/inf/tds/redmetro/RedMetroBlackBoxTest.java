@@ -118,50 +118,7 @@ public class RedMetroBlackBoxTest {
 		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
 	}
 	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroJsonUnaLinea() {
-		String json = "{lineaPrimera}";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(json);});
-	}
 	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroJsonDosLineas() {
-		String json = "[lineaPrimera, lineaSegunda]";
-		RedMetro red = new RedMetro(json);
-		assertNotNull(red);
-		Linea[] esperado = {lineaPrimera, lineaSegunda};
-		assertArrayEquals(esperado, red.getLineas());
-	}
-	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroLineasIgualColorJSon() {
-		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
-		lineaPrimera = new Linea(1,"rojo",estaciones1);
-		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
-		lineaSegunda = new Linea(2, "rojo", estaciones2);
-		String lineasMismoColor = "[lineaPrimera, lineaSegunda]";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(lineasMismoColor);});
-	}
-	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroLineasIgualNunJson() {
-		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
-		lineaPrimera = new Linea(1,"rojo",estaciones1);
-		Estacion[] estaciones2 = {estacionInicial2, estacionIntermedia2, estacionFinal2};
-		lineaSegunda = new Linea(1, "azul", estaciones2);
-		String lineasMismoNumero = "[lineaPrimera, lineaSegunda]";
-		assertThrows(IllegalArgumentException.class, () -> { 
-		@SuppressWarnings("unused")
-		RedMetro redDeMetro = new RedMetro(lineasMismoNumero);});
-	}
 	
 	@Test
 	@Tag("BlackBox")
@@ -190,6 +147,18 @@ public class RedMetroBlackBoxTest {
  		assertThrows(IllegalArgumentException.class, () -> { redMetro.addLinea(linea);});
 	}
 	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroNoEnServicio() {
+		redMetro.retirarLinea(lineaPrimera);
+		assertFalse(redMetro.enServicio(lineaPrimera));
+	}
+	
+	@Test
+	@Tag("BlackBox")
+	public void testRedMetroEnServicioNoPertenece() {
+		assertThrows(IllegalArgumentException.class, () -> { redMetro.enServicio(lineaCuarta);});
+	}
 	@Test
 	@Tag("BlackBox")
 	public void testRedMetroRetirarLineaNull() {
@@ -305,7 +274,7 @@ public class RedMetroBlackBoxTest {
 	@Tag("BlackBox")
 	public void testRedMetroGetEstacionCercanaDistanciaMenorQue0() {
 		CoordenadasGPS coordenadas = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
-		assertThrows(IllegalArgumentException.class, () -> {redMetro.getEstacionCercana(coordenadas, -1);});
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.hayEstacionCercana(coordenadas, -1);});
 	}
 	
 	@Test
@@ -314,12 +283,7 @@ public class RedMetroBlackBoxTest {
 		CoordenadasGPS coordenadas = new CoordenadasGPS("000°38'06\"N","000°05'59\"E");
 		//TODO cambiar cuando se implemente
 		fail("not yet implemented");
-		assertNull(redMetro.getEstacionCercana(coordenadas, 40));
+		assertFalse(redMetro.hayEstacionCercana(coordenadas, 40));
 	}
-	
-	@Test
-	@Tag("BlackBox")
-	public void testRedMetroGetInfoLineasPorNombreEstacionNohay() {
-		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas("nombre de estacion que no existe");});
-	}
+
 }

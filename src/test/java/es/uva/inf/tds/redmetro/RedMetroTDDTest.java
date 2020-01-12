@@ -1,10 +1,9 @@
 package es.uva.inf.tds.redmetro;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import org.json.JSONException;
 import org.junit.jupiter.api.AfterEach;
@@ -157,17 +156,21 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void testRedMetroGetLineaEnServicio() {
-		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
-		assertArrayEquals(esperado,redMetro.getLineaEnServicio());
+	public void testRedMetroComprobarLineaEnServicio() {
+		assertTrue(redMetro.enServicio(lineaPrimera));
+	}
+	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroLineaEnServicioExcepcion() {
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.enServicio(null);});
 	}
 	
 	@Test
 	@Tag("TDD")
 	public void testRedMetroRetirarLinea() {
-		Linea[] esperado = {lineaPrimera, lineaSegunda};
 		redMetro.retirarLinea(lineaTercera);
-		assertArrayEquals(esperado, redMetro.getLineaEnServicio());
+		assertFalse(redMetro.enServicio(lineaTercera));
 	}
 	
 	@Test
@@ -189,6 +192,12 @@ public class RedMetroTDDTest {
 		assertThrows(IllegalArgumentException.class, () -> {redMetro.getLineas(null);});
 	}
 	
+	@Test
+	@Tag("TDD")
+	public void testRedMetroGetLineasEnServicio() {
+		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
+		assertArrayEquals(esperado, redMetro.getLineasEnServicio());
+	}
 	@Test
 	@Tag("TDD")
 	public void testRedMetroConsultarCorrespondencia() {
@@ -225,8 +234,7 @@ public class RedMetroTDDTest {
 	public void testRedMetroReactivarLinea() {
 		redMetro.retirarLinea(lineaTercera);
 		redMetro.reactivarLinea(lineaTercera);
-		Linea[] esperado = {lineaPrimera, lineaSegunda, lineaTercera};
-		assertArrayEquals(esperado, redMetro.getLineaEnServicio());
+		assertTrue(redMetro.enServicio(lineaTercera));
 	}
 	
 	@Test
@@ -271,66 +279,17 @@ public class RedMetroTDDTest {
 	
 	@Test
 	@Tag("TDD")
-	public void testRedMetroGetEstacionCercana() {
+	public void testRedMetroHayEstacionCercana() {
 		CoordenadasGPS coord1 = new CoordenadasGPS("041°38'06\"N","135°05'59\"E");
-		CoordenadasGPS coord2 = new CoordenadasGPS("045°38'06\"N","132°05'59\"E");
-		CoordenadasGPS[] coordenadasInicial = {coord1, coord2};
- 		Estacion estacionInicial = new Estacion("Primera Estacion", coordenadasInicial);
  		// TODO cambiar cuando se implemente
  		fail("not yet implemented");
- 		assertArrayEquals(estacionInicial.getCoordenadasGPS(), redMetro.getEstacionCercana(coord1,400).getCoordenadasGPS());
+ 		assertTrue(redMetro.hayEstacionCercana(coord1,400));
 	}
 	
 	@Test
 	@Tag("TDD")
 	public void testRedMetroGetEstacionCercanaExcepcion() {
-		assertThrows(IllegalArgumentException.class, () -> {redMetro.getEstacionCercana(null, 0);});
+		assertThrows(IllegalArgumentException.class, () -> {redMetro.hayEstacionCercana(null, 0);});
 	}
 	
-	@Test
-	@Tag("TDD")
-	public void testRedMetroGetInfoLineas() throws JSONException {
-		CoordenadasGPS entrada2 = new CoordenadasGPS("058°38'06\"N","136°05'59\"E");
-		CoordenadasGPS salida2 = new CoordenadasGPS("064°38'06\"N","135°05'59\"E");
-		CoordenadasGPS[] coordenadasFinal1 = {entrada2, salida2};
-		estacionFinal1 = new Estacion("Segunda Estacion L1", coordenadasFinal1);
-		Estacion[] estaciones1 = {estacionInicial1, estacionFinal1};
- 		lineaPrimera = new Linea(1,"rojo",estaciones1);
- 		Estacion[] estaciones3 = {estacionFinal1, estacionFinal2};
- 		lineaTercera = new Linea(3, "verde", estaciones3);
- 		
- 		JSONAssert.assertEquals("[lineaPrimera, lineaTercera]", redMetro.getInfoLineas("Segunda Estacion L1"),JSONCompareMode.STRICT);
-	}
-	
-	@Test
-	@Tag("TDD")
-	public void testRedMetroGetInfoLineasExcepcion() {
-		assertThrows(IllegalArgumentException.class, () -> {redMetro.getInfoLineas(null);});
-	}
-	
-	@Test
-	@Tag("TDD")
-	public void testRedMetroGetInfoRedMetro() throws JSONException {
-		Linea[] linea = {lineaPrimera, lineaSegunda};
-		@SuppressWarnings("unused")
-		RedMetro red = new RedMetro(linea);
-		JSONAssert.assertEquals("[lineaPrimera, lineaSegunda]", redMetro.getInfoRed(),JSONCompareMode.STRICT);
-	}
-	
-	@Test
-	@Tag("TDD")
-	public void testRedMetroCrearAPartirJson() {
-		RedMetro red = new RedMetro("[lineaPrimera, lineaSegunda, lineaTercera]");
-		// TODO cambiar cuando se implemente
-		fail("not yet implemented");
-		assertArrayEquals(redMetro.getLineas(),red.getLineas());
-	}
-	
-	@Test
-	@Tag("TDD")
-	public void testRedMetroCrearAPartirJsonExcepcion() {
-		String jsonNull = null;
-		assertThrows(IllegalArgumentException.class, () -> {@SuppressWarnings("unused")
-		RedMetro red = new RedMetro(jsonNull);});
-	}
 }

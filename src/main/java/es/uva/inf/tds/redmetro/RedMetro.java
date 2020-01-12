@@ -1,6 +1,12 @@
 package es.uva.inf.tds.redmetro;
 
-import org.json.JSONObject;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import es.uva.inf.maps.CoordenadasGPS;
 /**
@@ -10,7 +16,9 @@ import es.uva.inf.maps.CoordenadasGPS;
  *
  */
 public class RedMetro {
-
+	private ArrayList<Linea> lineas;
+	private ArrayList<Linea> lineasInactivas;
+	private ArrayList<Linea> lineasEliminadas;
 	/**
 	 * Inicializador de una red de metro, formada por varias lineas. 
 	 * Una red de metro tiene que tener al menos dos lineas. 
@@ -28,37 +36,27 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public RedMetro(Linea... lineas) {
-		// TODO Auto-generated constructor stub
+		if(lineas == null) throw new IllegalArgumentException();
+		if(lineas.length<2) throw new IllegalArgumentException();
+		for(int i = 0; i<lineas.length; i++) {
+			for(int j = 0; j<lineas.length; j++) {
+				if(i!=j && lineas[i].getColor().equals(lineas[j].getColor())) throw new IllegalArgumentException();
+				if(i!=j && lineas[i].getNumero() == lineas[j].getNumero()) throw new IllegalArgumentException();
+			}
+		}
+		 
+		this.lineas =  new ArrayList<Linea>(Arrays.asList(lineas));
+		this.lineasInactivas = new ArrayList<>();
+		this.lineasEliminadas = new ArrayList<>();
 	}
-
-	/**
-	 * Inicializador de una red de metro a partir de un objeto JSON 
-	 * que contiene toda la informacion sobre las lineas. 
-	 * Una red de metro tiene que tener al menos dos lineas. 
-	 * Una linea esta univocamente identificada en la red por un numero consecutivo
-	 * y un color que no puede coincidir con colores de otras lineas de esa red
-	 * Las lineas se inicializan en servicio
-	 * 
-	 * @pre.condition {@code json != null}
-	 * @pre.condition lineas tienen que ser al menos dos
-	 * @pre.condition las lineas tienen numeros consecutivos
-	 * @pre.condition las lineas tienen diferentes colores
-	 * 
-	 * @param json formato json que contiene toda la informacion sobre la red
-	 * 
-	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
-	 */
-	public RedMetro(String json) {
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	/**
 	 * Consulta las lineas que pertenecen a la red de metro, ya esten en servicio o fuera de servicio
 	 * @return lineas que forman la red
 	 */
 	public Linea[] getLineas() {
-		// TODO Auto-generated method stub
-		return null;
+		Linea[] linea = lineas.toArray(new Linea[lineas.size()]);
+		return linea;
 	}
 
 	/**
@@ -78,8 +76,15 @@ public class RedMetro {
 	 * 
 	 */
 	public void addLinea(Linea linea) {
-		// TODO Auto-generated method stub
+		if(linea == null) throw new IllegalArgumentException();
+		for(int i = 0; i<lineas.size(); i++) {
+			if(lineas.get(i).getColor().equals(linea.getColor())) throw new IllegalArgumentException();
+			if(lineas.get(i).getNumero() == linea.getNumero()) throw new IllegalArgumentException();
+		}
+		int ultimoNumero = lineas.get(lineas.size()-1).getNumero();
+		if(linea.getNumero() != ultimoNumero+1) throw new IllegalArgumentException();
 		
+		lineas.add(linea);
 	}
 	
 	/**
@@ -90,8 +95,11 @@ public class RedMetro {
 	 * @return linea contenida en la red
 	 */
 	public Linea getLinea(int numero) {
-		// TODO Auto-generated method stub
-		return null;
+		Linea linea = null;
+		for(int i = 0; i<lineas.size(); i++) {
+			if(lineas.get(i).getNumero() == numero) linea = lineas.get(i);
+		}
+		return linea;
 	}
 
 	/**
@@ -104,17 +112,32 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea getLinea(String color) {
-		// TODO Auto-generated method stub
-		return null;
+		if(color == null) throw new IllegalArgumentException();
+		
+		Linea linea = null;
+		for(int i = 0; i<lineas.size(); i++) {
+			if(lineas.get(i).getColor().equals(color)) linea = lineas.get(i);
+		}
+		return linea;
 	}
 
 	/**
-	 * Devuelve todas las lineas de la red de metro que estan en servicio
-	 * @return lista de lineas en servicio de la red
+	 * Devuelve si una linea perteneciente a la red de metro esta en servicio o no
+	 * 
+	 * @pre.condition {@code linea != null}
+	 * @pre.condition linea tiene que pertenecer a la red
+	 * @param linea linea que se quiere comprobar que este en servicio
+	 * @return true, si la linea se encuentra en servicio, false en cualquier otro caso
+	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
-	public Linea[] getLineaEnServicio() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean enServicio(Linea linea) {
+		if(linea == null) throw new IllegalArgumentException();
+		if(!lineas.contains(linea)) throw  new IllegalArgumentException();
+	
+		boolean enServicio = true;
+		if(lineasInactivas.contains(linea)) enServicio = false;
+		if(lineasEliminadas.contains(linea)) enServicio = false;
+		return enServicio;
 	}
 
 	/**
@@ -133,8 +156,11 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public void retirarLinea(Linea linea) {
-		// TODO Auto-generated method stub
+		if(linea == null) throw new IllegalArgumentException();
+		if(this.getLineasEnServicio().length<=2) throw new IllegalArgumentException();
+		if(!lineas.contains(linea)) throw new IllegalArgumentException();
 		
+		if(!lineasInactivas.contains(linea)) lineasInactivas.add(linea);
 	}
 
 	/**
@@ -151,9 +177,21 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea[] getLineas(String nombreEstacion) {
-		// TODO Cambiar fake implementation
-		Linea[] lineas = {};
-		return lineas;
+		if(nombreEstacion == null) throw new IllegalArgumentException();
+		
+		ArrayList<Linea> lineasEstacion = new ArrayList<>();
+		Linea[] lineasEnServicio = this.getLineasEnServicio();
+		for( int i = 0; i< lineasEnServicio.length; i++) {
+			Estacion[] estacionesDirectas = lineasEnServicio[i].getEstaciones(true);
+			for(int j = 0; j<estacionesDirectas.length; j++) {
+				if(estacionesDirectas[j].getNombre().equals(nombreEstacion)) lineasEstacion.add(lineasEnServicio[i]); 
+			}
+		}
+		Linea[] lineasConEstacion = null;
+		if(lineasEstacion.size()>0) {
+			lineasConEstacion = lineasEstacion.toArray(new Linea[lineasEstacion.size()]);
+		}
+		return lineasConEstacion;
 	}
 
 	/**
@@ -171,13 +209,17 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones
 	 */
 	public Estacion[] getCorrespondencia(Linea linea1, Linea linea2) {
-		// TODO Auto-generated method stub
-		return null;
+		if(linea1== null || linea2 == null) throw new IllegalArgumentException();
+		if(!this.enServicio(linea1) || !this.enServicio(linea2)) throw new IllegalArgumentException();
+		
+		Estacion[] correspondencias = linea1.getCorrespondencias(linea2);
+		return correspondencias;
 	}
 
 	/**
 	 * Elimina la linea definitivamente de la red de metro.
 	 * La linea tiene que formar parte de la red de metro
+	 * Si la linea ya estaba eliminada el metodo queda sin efecto
 	 * 
 	 * @pre.condition {@code linea != null}
 	 * @pre.condition {@code getLinea.contains(linea)}
@@ -186,8 +228,10 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones 
 	 */
 	public void eliminarLinea(Linea linea) {
-		// TODO Auto-generated method stub
+		if(linea == null) throw new IllegalArgumentException();
+		if(!lineas.contains(linea)) throw new IllegalArgumentException();
 		
+		if(!lineasEliminadas.contains(linea)) lineasEliminadas.add(linea);
 	}
 
 	/**
@@ -202,8 +246,10 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumplen las precondiciones 
 	 */
 	public void reactivarLinea(Linea linea) {
-		// TODO Auto-generated method stub
+		if(linea == null) throw new IllegalArgumentException();
+		if(!lineas.contains(linea)) throw new IllegalArgumentException();
 		
+		if(lineasInactivas.contains(linea)) lineasInactivas.remove(linea);		
 	}
 
 	/**
@@ -222,7 +268,15 @@ public class RedMetro {
 	 * @throws IllegalArgumentException si no se cumple la precondicion
 	 */
 	public Linea getConexionSinTrasbordo(Estacion estacionPartida, Estacion estacionDestino) {
-		// TODO Auto-generated method stub
+		if(estacionPartida == null || estacionDestino == null) throw new IllegalArgumentException();
+		
+		Linea linea;
+		for(int i = 0; i<lineas.size(); i++) {
+			if(lineas.get(i).estaConectada(estacionPartida, estacionDestino) && this.enServicio(lineas.get(i))) {
+				linea = lineas.get(i);
+				return linea; 
+			}
+		}
 		return null;
 	}
 
@@ -240,51 +294,87 @@ public class RedMetro {
 	 * @throws IllegalArgumentException cuando no se cumple la precondicion
 	 */
 	public Linea[] getConexionTrasbordo(Estacion estacionPartida, Estacion estacionDestino) {
-		// TODO Auto-generated method stub
+		if(estacionPartida == null || estacionDestino == null) throw new IllegalArgumentException();
+		
+		Linea[] lineasActivas = this.getLineasEnServicio();
+		ArrayList<Linea> lineasTrasb = new ArrayList<>();
+		Linea lineaPartida = null;
+		Linea lineaDestino = null;
+		for(int i = 0;i < lineasActivas.length; i++) {
+			Estacion[] estacionesPartida = lineasActivas[i].getEstaciones(true);
+			for(int j = 0; j< estacionesPartida.length; j++) {
+				if(estacionesPartida[j].getNombre().equals(estacionPartida.getNombre())) lineaPartida = lineasActivas[i];
+			}
+		}
+		for(int i = 0;i < lineasActivas.length; i++) {
+			Estacion[] estacionesLlegada = lineasActivas[i].getEstaciones(false);
+			for(int j = 0; j< estacionesLlegada.length; j++) {
+				if(estacionesLlegada[j].getNombre().equals(estacionDestino.getNombre())) lineaDestino = lineasActivas[i];
+			}
+		}
+		if(lineaPartida != null && lineaDestino != null) {
+			for(int k = 0; k<lineasActivas.length; k++) {
+				if(lineaPartida.hayCorrespondencia(lineasActivas[k]) && 
+					lineaDestino.hayCorrespondencia(lineasActivas[k])){
+					lineasTrasb.add(lineaPartida);
+					lineasTrasb.add(lineasActivas[k]);
+					lineasTrasb.add(lineaDestino);
+					Linea[] lineasTrasbordo = lineasTrasb.toArray(new Linea[lineasTrasb.size()]);
+					return lineasTrasbordo;
+				}
+			}
+		}
 		return null;
 	}
 
 	/**
-	 * Devuelve una estacion cercana a una coordenada GPS dada
-	 * y en un radio menor o igual que la distancia indicada
-	 * Solo devuelve estacion que se encuentren en lineas con servicio
+	 * Devuelve si hay una estacion cercana a una coordenada GPS dada
+	 * en un radio menor o igual que la distancia indicada
+	 * Solo devuelve si hay alguna estacion que se encuentren 
+	 * en lineas con servicio
 	 * 
 	 * @pre.condition {@code coordenada != null}
 	 * @pre.condition {@code distanciaMax >= 0}
 	 *  
 	 * @param coordenada coordenadaGPS
 	 * @param distanciaMax distancia maxima medida en metros para establecer la cercania
-	 * @return estacion cercana si se ha encontrado alguna, nada en cualquier otro caso
+	 * @return true si se ha encontrado alguna estacion cercana, false en cualquier otro caso
 	 */
-	public Estacion getEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean hayEstacionCercana(CoordenadasGPS coordenada, int distanciaMax) {
+		if(coordenada == null) throw new IllegalArgumentException();
+		if(distanciaMax<0) throw new IllegalArgumentException();
+		Linea[] lineasActivas = this.getLineasEnServicio();
+		boolean hayEstacionCercana = false;
+		for(int i = 0; i<lineasActivas.length; i++) {
+			Estacion[] estacionesD = lineasActivas[i].getEstaciones(true);
+
+			for(int j = 0; j<estacionesD.length; j++) {
+				CoordenadasGPS[] coordenadas = estacionesD[j].getCoordenadasGPS();
+				for(int k = 0; k < coordenadas.length; k++) {
+					if(coordenadas[k].getDistanciaA(coordenada)<= distanciaMax) {
+						hayEstacionCercana = true;
+						return hayEstacionCercana;
+					}
+				}
+			}
+		}
+		return hayEstacionCercana;
 	}
 
 	/**
-	 * Devuelve informacion en formato JSON sobre las lineas
-	 * en la que se encuentra la estacion
-	 * Devuelve una lista de lineas si hay mas de una coincidencia
-	 * Si no hay ninguna linea que contenga la estacion, devuelve vacio
-	 * @pre.condition {@code nombreEstacion!= null}
-	 * @param nombreEstacion nombre de la estacion 
-	 * @return JSONObject lista de lineas que contienen a la estacion, vacio en cualquier otro caso
+	 * Devuelve las lineas que estan activas en la red de metro
+	 * @return todas las lineas activas
 	 */
-	public JSONObject getInfoLineas(String nombreEstacion) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	/**
-	 * Devuelve la informacion de la red de metro en formato JSON
-	 * Devuelve la informacion de todas, tanto en servicio como sin servicio,
-	 * de las lineas que conforman esa red
-	 * 
-	 * @return objeto JSON que representa todas las lineas que tiene la red de metro
-	 */
-
-	public JSONObject getInfoRed() {
-		// TODO Auto-generated method stub
-		return null;
+	public Linea[] getLineasEnServicio() {
+		ArrayList<Linea> lineasServicio = new ArrayList<>();
+		for(int i = 0; i < lineas.size(); i++) {
+			if(!lineasInactivas.contains(lineas.get(i)) && !lineasEliminadas.contains(lineas.get(i))) {
+				lineasServicio.add(lineas.get(i));
+			}
+		}
+		
+		Linea[] lineasEnServicio = lineasServicio.toArray(new Linea[lineasServicio.size()]);
+		return lineasEnServicio;
 	}
 
 

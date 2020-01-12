@@ -20,10 +20,6 @@ build_job:
   script:
     - mvn --batch-mode compile -Dmaven.test.skip=true -Djacoco.skip=true
 
-test_unit:
- stage: test
- script:
-   - mvn test -P Unit
 
 test_isolation:
  stage: test
@@ -32,12 +28,6 @@ test_isolation:
  except:
    - master
   
-test_integration:
- stage: test
- script: 
-   - mvn test -P Unit
- only:
-   - master
 
 
 sonar_publish_job:

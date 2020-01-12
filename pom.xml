@@ -64,17 +64,17 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<!-- Minimal supported version is 2.4 -->
 						<version>2.22.2</version>
 						<configuration>
-							<properties>
-								<property>
-									<name>listener</name>
-									<value>org.sonar.java.jacoco.JUnitListener</value>
-								</property>
-							</properties>
+							<excludes>
+								<exclude>src/test/java/es.uva.inf.tds.redmetro/RedMetroTDDTest.java</exclude>
+								<exclude>src/test/java/es.uva.inf.tds.redmetro/RedMetroBlackBoxTest.java</exclude>
+								<exclude>src/test/java/es.uva.inf.tds.redmetro/RedMetroSequenceTest.java</exclude>
+								<exclude>src/main/java/es.uva.inf.tds.redmetro/Estacion.java</exclude>
+								<exclude>src/main/java/es.uva.inf.tds.redmetro/Linea.java</exclude>
+								<exclude>src/main/java/es.uva.inf.maps/CoordenadasGPS.java</exclude>
+							</excludes>
 						</configuration>
 					</plugin>
 				</plugins>

@@ -8,7 +8,10 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import es.uva.inf.maps.CoordenadasGPS;
-
+/**
+ * 
+ * @author marrobl Maria Robles del Blanco
+ */
 public class RedMetroBlackBoxTest {
 	private RedMetro redMetro;
 	private Linea lineaPrimera, lineaSegunda, lineaTercera, lineaCuarta;

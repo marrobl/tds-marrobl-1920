@@ -1,6 +1,5 @@
 
 
-
 package es.uva.inf.tds.redmetro;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,6 +13,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import es.uva.inf.maps.CoordenadasGPS;
+/**
+ * 
+ * @author marrobl Maria Robles del Blanco
+ *
+ */
 
 public class RedMetroIsolationBlackBoxTest {
 	private RedMetro redMetro;
